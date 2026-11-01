@@ -125,7 +125,7 @@
 
 <div data-page-node-id="gREageJ7vmjFnlwkUAb7gK" class="top">
   <h1 data-page-node-id="JyYJ4zaj9bcjkk3lywNCGz"><!--pnid:4xJHcnAaM93tMDUaPxg2OE-->🏀 球力 · 篮球健身工作台</h1>
-  <p data-page-node-id="2cpfNQQFO5LSiwkK6EMFla" id="topsub"><!--pnid:nWurqaHL8zvYZSYcoktYqT-->190cm / 85kg / 四五号位 · 篮球+健美平衡</p>
+  <p data-page-node-id="2cpfNQQFO5LSiwkK6EMFla" id="topsub"><!--pnid:nWurqaHL8zvYZSYcoktYqT-->还未设置档案 · 点「我的 → 身体档案」填写</p>
 </div>
 
 <div data-page-node-id="P4z5FkA2XcH2GxFXihhbtc" class="wrap" id="app">
@@ -276,8 +276,8 @@
       <div data-page-node-id="a8LhGHtaXyYWjENhW2HNN9" class="card">
         <h2 data-page-node-id="nrd7rSu3Uv8sRtIjRoPjPB"><span data-page-node-id="7UiCANfjsPLmW0Hp94y1H9" class="ci"><!--pnid:kDG0Vikk6P32byCwWqRHdS-->👤</span><!--pnid:rzlsKVO7vuPFAF1V3JOf3Y-->基础档案</h2>
         <div data-page-node-id="Yof2BqG0AeqU63gRQtKdq0" class="grid g2">
-          <div data-page-node-id="6imREP88kYBgKe2gUA9fkT"><label data-page-node-id="pBqx9Is5OXEdhHwHpszK6D"><!--pnid:MAXJws85DcMWpE9rLB0k30-->身高(cm)</label><input data-page-node-id="mdEHSaOIzoqvbwFlLpPXnk" id="p_h" type="number" value="190"></div>
-          <div data-page-node-id="DXVV9vxIGg86pa0kF6B7u0"><label data-page-node-id="0yZzoRMBd8k8MB6uDR4NgG"><!--pnid:lmExxWqfjG79htBPzTozZq-->体重(kg)</label><input data-page-node-id="ZBJJtkdwKENjndxqV1t312" id="p_w" type="number" value="85"></div>
+          <div data-page-node-id="6imREP88kYBgKe2gUA9fkT"><label data-page-node-id="pBqx9Is5OXEdhHwHpszK6D"><!--pnid:MAXJws85DcMWpE9rLB0k30-->身高(cm)</label><input data-page-node-id="mdEHSaOIzoqvbwFlLpPXnk" id="p_h" type="number" placeholder="如 180" inputmode="numeric"></div>
+          <div data-page-node-id="DXVV9vxIGg86pa0kF6B7u0"><label data-page-node-id="0yZzoRMBd8k8MB6uDR4NgG"><!--pnid:lmExxWqfjG79htBPzTozZq-->体重(kg)</label><input data-page-node-id="ZBJJtkdwKENjndxqV1t312" id="p_w" type="number" placeholder="如 75" inputmode="numeric"></div>
         </div>
         <label data-page-node-id="2BvE9qJQqLCuJehiafhg4h"><!--pnid:2Xw24BA7x0FbvpVrEjurom-->位置</label>
         <select data-page-node-id="FMpEvhi2UauCXq1xPv47Cw" id="p_pos">
@@ -376,7 +376,7 @@ const MUSCLE={'深蹲':['腿'],'硬拉':['腿','背'],'卧推':['胸'],'上斜�
   '弯举':['臂'],'箱跳':['腿'],'跳深':['腿'],'负重半蹲跳':['腿'],'单腿跳':['腿'],
   '平板支撑':['核心'],'侧桥':['核心'],'农夫行走':['核心'],'核心抗旋':['核心'],
   '单腿硬拉':['腿','核心'],'药球抛接':['核心'],'TRX划船':['背']};
-let S={profile:{h:190,w:85,pos:'45',goal:'balance',days:5},
+let S={profile:{h:0,w:0,pos:'',goal:'balance',days:5},
        records:[], body:[], plan:{mode:'plan'},
        cal:{y:new Date().getFullYear(), m:new Date().getMonth(), sel:null},
        myTab:'body'};
@@ -477,7 +477,7 @@ function renderHome(){
       <div class="bar"><i style="width:${pct}%;background:${CAT[c].color}"></i></div>`;}).join('');
   const lastB=S.body.slice(-1)[0];
   $('bodyDash').innerHTML=lastB?[
-    ['体重',(lastB.weight||S.profile.w)+'kg'],['体脂率',(lastB.fat||'—')+'%'],
+    ['体重',(lastB.weight||S.profile.w||'—')+'kg'],['体脂率',(lastB.fat||'—')+'%'],
     ['肌肉量',(lastB.muscle||'—')+'kg'],['BMI',bmi(lastB.weight||S.profile.w)]
   ].map(x=>`<div class="stat"><div class="v">${x[1]}</div><div class="l">${x[0]}</div></div>`).join('')
   :'<div class="mini">暂无体脂秤数据，去「我的 → 身体档案」录入。</div>';
@@ -497,7 +497,7 @@ function renderHome(){
     :'<div class="mini">还没有记录，去「记录」页添加第一条吧。</div>';
   $('nextBox').innerHTML='<b>👉 今日建议：</b>'+nextReco().headline;
 }
-function bmi(w){return (w/Math.pow(S.profile.h/100,2)).toFixed(1);}
+function bmi(w){if(!w||!S.profile.h)return '—';return (w/Math.pow(S.profile.h/100,2)).toFixed(1);}
 
 /* ===== 推荐重量 ===== */
 function exHistory(ex){return S.records.filter(r=>r.ex===ex && r.weight>0).sort((a,b)=>a.date<b.date?-1:1);}
@@ -636,7 +636,7 @@ document.querySelectorAll('#mySeg div').forEach(d=>d.onclick=()=>{S.myTab=d.data
 /* ===== 身体 ===== */
 function renderBody(){
   $('b_date').value=todayStr();
-  $('p_h').value=S.profile.h; $('p_w').value=S.profile.w; $('p_pos').value=S.profile.pos;
+  $('p_h').value=S.profile.h||''; $('p_w').value=S.profile.w||''; $('p_pos').value=S.profile.pos||'45';
   const trend=S.body.slice(-10);
   if(trend.length>=2){
     $('bodyTrend').innerHTML=lineChart(trend.map(b=>b.weight),'体重(kg)','#3da5ff')
@@ -682,7 +682,7 @@ function renderAna(){
   const r3=lastN(3).filter(r=>r.cat!=='rest'); const sets=r3.reduce((a,r)=>a+(+r.sets||0),0);
   const rpe=r3.length?Math.round(r3.reduce((a,r)=>a+(+r.rpe||0),0)/r3.length):0;
   let rest=`近3天：${sets}组，平均RPE ${rpe}，恢复评分 ${recoveryScore()}。<br>`;
-  if(recoveryScore()<45)rest+=`· 建议明天安排恢复日，睡眠8h，蛋白约${Math.round(S.profile.w*1.8)}g/天。`;
+  if(recoveryScore()<45)rest+=`· 建议明天安排恢复日，睡眠8h${S.profile.w?`，蛋白约${Math.round(S.profile.w*1.8)}g/天`:""}。`;
   else if(recoveryScore()<70)rest+=`· 负荷适中，1个训练日后穿插轻恢复，注意补水睡眠。`;
   else rest+=`· 恢复良好，可正常推进计划。`;
   rest+=`<br>· 四五号位：关注膝踝腰背，落地缓冲+核心稳定不可省。`;
@@ -738,8 +738,8 @@ document.querySelectorAll('#modeSwitch div').forEach(d=>d.onclick=()=>{
   S.plan.mode=d.dataset.mode; save();
   document.querySelectorAll('#modeSwitch div').forEach(x=>x.classList.toggle('on',x===d)); renderPlan();});
 $('saveGoal').onclick=()=>{S.profile.goal=$('g_goal').value; S.profile.days=+$('g_days').value||5; save(); alert('目标已保存'); renderPlan();};
-$('saveProfile').onclick=()=>{S.profile.h=+$('p_h').value||190; S.profile.w=+$('p_w').value||85; S.profile.pos=$('p_pos').value;
-  save(); $('topsub').textContent=`${S.profile.h}cm / ${S.profile.w}kg / 四五号位 · 篮球+健美平衡`; alert('档案已保存');};
+$('saveProfile').onclick=()=>{S.profile.h=+$('p_h').value||0; S.profile.w=+$('p_w').value||0; S.profile.pos=$('p_pos').value||'45';
+  save(); renderProfileSummary(); alert('档案已保存');};
 
 /* ===== 导入导出 ===== */
 $('exportBtn').onclick=()=>{
@@ -757,8 +757,18 @@ $('importFile').onchange=e=>{const f=e.target.files[0]; if(!f)return; const rd=n
     save(); alert('导入完成'); renderData();}; rd.readAsText(f);};
 $('resetBtn').onclick=()=>{if(confirm('确定清空全部数据？不可恢复！')){S.records=[];S.body=[];save();alert('已清空');renderData();}};
 
+/* ===== 档案摘要 ===== */
+const POS_TXT={45:'四五号位(内线/锋线)',23:'二三号位(外线)',all:'全能'};
+const GOAL_TXT={balance:'篮球+健美平衡',jump:'主攻弹跳/爆发',mass:'主攻增肌围度',skill:'主攻篮球技术'};
+function renderProfileSummary(){const p=S.profile;
+  if(!p||!p.h||!p.w){$('topsub').textContent='还未设置档案 · 点「我的 → 身体档案」填写';return;}
+  const head=[`${p.h}cm / ${p.w}kg`]; if(POS_TXT[p.pos])head.push(POS_TXT[p.pos]);
+  let txt=head.join(' / '); if(GOAL_TXT[p.goal])txt+=' · '+GOAL_TXT[p.goal];
+  $('topsub').textContent=txt;}
+
 /* ===== 初始化 ===== */
 load();
+renderProfileSummary();
 $('f_date').value=todayStr();
 onCatChange();
 renderExLib();
