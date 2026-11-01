@@ -1,0 +1,18 @@
+# 本地辅助文件，不发布到网站
+actions.json
+append_doc.py
+deploy_github.py
+patch_*.py
+_mkdemo.py
+new_style.css
+fitness_workbench.html
+index.html.pre*
+.ghtoken
+# 截图/自检临时产物
+_d*.html
+_measure.html
+_dom*.html
+_log*.txt
+_s_*.png
+_crop_*.png
+_shot*.png

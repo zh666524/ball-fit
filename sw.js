@@ -1,5 +1,5 @@
 /* 球力 · 离线缓存（网络优先，断网回退缓存） */
-const CACHE = 'qiuli-v1';
+const CACHE = 'ballfit-v2';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-180.png'];
 
 self.addEventListener('install', (e) => {
