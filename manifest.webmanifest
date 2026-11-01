@@ -1,0 +1,14 @@
+{
+  "name": "球力 · 篮球健身工作台",
+  "short_name": "球力",
+  "description": "篮球与健身训练记录、计划、恢复与身体数据分析",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1218",
+  "theme_color": "#10151c",
+  "icons": [
+    { "src": "icon-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" }
+  ]
+}
