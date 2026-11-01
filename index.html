@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html data-page-node-id="DCQjSiiG20CUiqL8j2E6hD" lang="zh-CN">
+<head data-page-node-id="iAcNIj2o5MfUUtBCSBKBAY">
+<meta data-page-node-id="My0QxMLqRPJweRth9cJkcg" charset="UTF-8">
+<meta data-page-node-id="iirV9azeVxpN7pM5y5exwO" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport">
+<title data-page-node-id="QRwfAKLBxSx5xBcAfNKcFl" data-pnid-children="e25aH0yqIzSkjXvMKULz6j">球力 · 篮球健身工作台</title>
+<meta data-page-node-id="uyQ2jxTEURY0CHVYTaYfjR" content="#10151c" name="theme-color">
+<meta data-page-node-id="PyJAMgA6PZYQo23gNGd4e6" content="yes" name="apple-mobile-web-app-capable">
+<meta data-page-node-id="rzj6h2cM7VdWuadA6VIsXd" content="black-translucent" name="apple-mobile-web-app-status-bar-style">
+<meta data-page-node-id="6o4jg8NhN67XcPbl3FjiVu" content="球力" name="apple-mobile-web-app-title">
+<link data-page-node-id="xEyDjxn74Np609IXJIpmdI" href="manifest.webmanifest" rel="manifest">
+<link data-page-node-id="RyadMxfwX3sHupEVO1IO2m" href="icon-180.png" rel="apple-touch-icon">
+<link data-page-node-id="bIp7YWLO5WYRw54Q8eyg1W" href="icon-180.png" rel="icon" type="image/png">
+<style data-page-node-id="Xk4xDMu02B7T2FKF9aMyZa" data-pnid-children="cQ0DM4tSRlDlyKg6Wtnp7i">
+  :root{
+    --bg:#0d1218; --card:#161e27; --card2:#1e2833; --line:rgba(255,255,255,.07);
+    --txt:#eaf1f8; --sub:#8fa1b5; --accent:#ff7a3d; --accent2:#ff5470;
+    --blue:#3da5ff; --green:#36d399; --red:#ff5c6c; --yellow:#ffd166; --purple:#a78bfa; --gray:#8b98a8;
+    --shadow:0 6px 20px rgba(0,0,0,.28);
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0;}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    background:radial-gradient(1200px 600px at 50% -10%, #1a2733 0%, var(--bg) 55%) fixed;
+    color:var(--txt); font-size:15px; line-height:1.55; padding-bottom:78px;}
+  .top{position:sticky; top:0; z-index:20; background:linear-gradient(135deg,#ff7a3d 0%,#ff5470 70%,#ff4d8d 100%);
+    padding:16px 18px 14px; color:#fff; border-radius:0 0 20px 20px; box-shadow:0 8px 24px rgba(255,90,90,.22);}
+  .top h1{margin:0; font-size:17px; font-weight:800; letter-spacing:.3px; display:flex; align-items:center; gap:7px;}
+  .top p{margin:3px 0 0; font-size:12px; opacity:.9;}
+  .wrap{padding:14px 14px 4px;}
+  .card{background:linear-gradient(180deg,var(--card) 0%,#131a22 100%);
+    border:1px solid var(--line); border-radius:16px; padding:15px; margin-bottom:12px; box-shadow:var(--shadow);}
+  .card h2{margin:0 0 12px; font-size:15px; font-weight:700; display:flex; align-items:center; gap:8px;}
+  .card h2 .ci{width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;
+    background:rgba(255,122,61,.14); font-size:14px;}
+  .grid{display:grid; gap:10px;}
+  .g2{grid-template-columns:1fr 1fr;}
+  .g3{grid-template-columns:1fr 1fr 1fr;}
+  .stat{background:var(--card2); border:1px solid var(--line); border-radius:14px; padding:13px;}
+  .stat .v{font-size:21px; font-weight:800; letter-spacing:.3px;}
+  .stat .l{font-size:11px; color:var(--sub); margin-top:2px;}
+  .pill{display:inline-block; padding:3px 9px; border-radius:999px; font-size:12px; font-weight:700;}
+  .pill.bk{background:rgba(61,165,255,.16); color:var(--blue);}
+  .pill.jp{background:rgba(167,139,250,.16); color:var(--purple);}
+  .pill.fn{background:rgba(54,211,153,.16); color:var(--green);}
+  .pill.bd{background:rgba(255,122,61,.16); color:var(--accent);}
+  .pill.rx{background:rgba(255,209,102,.16); color:var(--yellow);}
+  .pill.rest{background:rgba(139,152,168,.18); color:var(--gray);}
+  label{display:block; font-size:12.5px; color:var(--sub); margin:12px 0 5px; font-weight:600;}
+  input,select,textarea{width:100%; background:var(--card2); border:1px solid var(--line);
+    color:var(--txt); border-radius:11px; padding:11px; font-size:15px; font-family:inherit; outline:none;
+    transition:border-color .15s;}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent);}
+  input[type=range]{padding:0;}
+  textarea{resize:vertical; min-height:56px;}
+  button{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; border:none; border-radius:11px;
+    padding:12px 14px; font-size:15px; font-weight:700; cursor:pointer; width:100%; box-shadow:0 4px 12px rgba(255,110,80,.25);
+    transition:transform .1s;}
+  button:active{transform:scale(.98);}
+  button.sub{background:var(--card2); color:var(--txt); border:1px solid var(--line); box-shadow:none;}
+  button.blue{background:linear-gradient(135deg,#3da5ff,#2b7fe0); box-shadow:none;}
+  button.green{background:linear-gradient(135deg,#36d399,#25a97a); color:#06321f; box-shadow:none;}
+  .bar{background:var(--card2); border-radius:9px; height:22px; position:relative; overflow:hidden; margin:5px 0;}
+  .bar i{position:absolute; left:0; top:0; bottom:0; border-radius:9px; transition:width .4s;}
+  .bar span{position:absolute; right:8px; top:2px; font-size:12px; color:#fff; font-weight:700; z-index:2;}
+  .barlbl{display:flex; justify-content:space-between; font-size:12px; color:var(--sub);}
+  .rec{background:var(--card2); border-left:3px solid var(--accent); border-radius:11px; padding:11px; margin-top:8px;}
+  .rec .t{font-weight:700; margin-bottom:3px; font-size:14px;}
+  .rec .d{font-size:12.5px; color:var(--sub);}
+  .rec .rhead{cursor:pointer; user-select:none;}
+  .rec .rbody{display:none; margin-top:6px;}
+  .rec.open .rbody{display:block;}
+  .rec .rhead .arrow{float:right; color:var(--sub); font-size:12px; transform:rotate(0deg); transition:transform .2s;}
+  .rec.open .rhead .arrow{transform:rotate(90deg);}
+  .list .item{background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:11px; margin-bottom:8px;}
+  .list .item .meta{font-size:12px; color:var(--sub); margin-top:4px;}
+  .list .item .ex{font-size:13px; margin-top:4px; color:#cdd9e6;}
+  .tabs{position:fixed; bottom:0; left:0; right:0; z-index:30; display:flex; background:rgba(18,25,33,.96);
+    border-top:1px solid var(--line); backdrop-filter:blur(12px); padding:6px 4px calc(6px + env(safe-area-inset-bottom));}
+  .tabs div{flex:1; text-align:center; padding:5px 0; font-size:10px; color:var(--sub); cursor:pointer; border-radius:12px;
+    transition:color .18s, background .18s;}
+  .tabs div.on{color:var(--accent); background:rgba(255,122,61,.1); font-weight:800;}
+  .tabs div .ic{font-size:18px; display:block; margin-bottom:1px; transition:transform .18s;}
+  .tabs div.on .ic{transform:translateY(-1px) scale(1.06);}
+  .hidden{display:none !important;}
+  .tag{font-size:11.5px; color:var(--sub); border:1px solid var(--line); border-radius:8px; padding:4px 8px; margin:3px 3px 0 0; display:inline-block; cursor:pointer; transition:.15s;}
+  .tag:active{background:var(--accent); color:#fff; border-color:var(--accent);}
+  .notip{background:linear-gradient(135deg,rgba(255,209,102,.14),rgba(255,122,61,.1));
+    border:1px solid rgba(255,209,102,.35); color:var(--yellow); border-radius:13px; padding:12px; font-size:13px; margin-bottom:12px;}
+  .sec{font-size:12px; color:var(--sub); margin:14px 0 6px; font-weight:700; letter-spacing:.4px;}
+  .mini{font-size:11.5px; color:var(--sub); line-height:1.6;}
+  .seg{display:flex; gap:6px; background:var(--card2); border:1px solid var(--line); border-radius:12px; padding:4px; margin-bottom:12px;}
+  .seg div{flex:1; text-align:center; padding:9px 4px; font-size:13px; font-weight:700; color:var(--sub); cursor:pointer; border-radius:9px; transition:.18s;}
+  .seg div.on{background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#fff; box-shadow:0 3px 10px rgba(255,110,80,.25);}
+  table{width:100%; border-collapse:collapse; font-size:12.5px;}
+  th,td{border-bottom:1px solid var(--line); padding:8px 6px; text-align:left; color:var(--txt);}
+  th{color:var(--sub); font-weight:700; font-size:11.5px;}
+  .danger{color:var(--red);}
+  .cal{display:grid; grid-template-columns:repeat(7,1fr); gap:5px;}
+  .cal .hd{text-align:center; font-size:11px; color:var(--sub); padding:4px 0; font-weight:700;}
+  .cal .cell{border-radius:10px; min-height:48px; padding:4px; background:var(--card2); border:1px solid var(--line);
+    position:relative; cursor:pointer; transition:.15s;}
+  .cal .cell:active{transform:scale(.96);}
+  .cal .cell.empty{background:transparent; border:none; cursor:default;}
+  .cal .cell.today{outline:2px solid var(--accent); outline-offset:-1px;}
+  .cal .cell .dn{font-size:12px; color:var(--txt); font-weight:600;}
+  .cal .cell .dots{display:flex; flex-wrap:wrap; gap:2px; margin-top:3px;}
+  .cal .cell .dt{width:7px; height:7px; border-radius:50%;}
+  .cal .cell .badge{position:absolute; right:3px; bottom:2px; font-size:9.5px; color:var(--sub);}
+  .calnav{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
+  .calnav b{font-size:16px; font-weight:800;}
+  .calnav span{cursor:pointer; font-size:20px; padding:0 14px; color:var(--accent); user-select:none;}
+  .legend{display:flex; flex-wrap:wrap; gap:9px; margin-top:10px; font-size:11px; color:var(--sub);}
+  .legend i{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:3px; vertical-align:middle;}
+  .exrec{background:var(--card2); border:1px solid var(--line); border-radius:11px; padding:10px; margin-top:7px;}
+  .exrec .e{font-weight:700; font-size:14px;}
+  .exrec .s{font-size:12px; color:var(--sub); margin-top:3px;}
+  .exrec .n{font-size:12px; color:var(--green); margin-top:2px;}
+  .exrec .w{font-size:12px; color:var(--yellow); margin-top:2px;}
+  .badge-rest{background:rgba(139,152,168,.14); color:var(--gray); border-radius:8px; padding:2px 7px; font-size:11px; font-weight:700;}
+  .split{height:1px; background:var(--line); margin:14px 0;}
+</style>
+</head>
+<body data-page-node-id="9xVpnOQ9nWRaSj4ZNLE6MD">
+
+<div data-page-node-id="gREageJ7vmjFnlwkUAb7gK" class="top">
+  <h1 data-page-node-id="JyYJ4zaj9bcjkk3lywNCGz"><!--pnid:4xJHcnAaM93tMDUaPxg2OE-->🏀 球力 · 篮球健身工作台</h1>
+  <p data-page-node-id="2cpfNQQFO5LSiwkK6EMFla" id="topsub"><!--pnid:nWurqaHL8zvYZSYcoktYqT-->190cm / 85kg / 四五号位 · 篮球+健美平衡</p>
+</div>
+
+<div data-page-node-id="P4z5FkA2XcH2GxFXihhbtc" class="wrap" id="app">
+
+  <!--pnid:9UirM1YVVekDwEv0pvjCzd--><!-- 概览 -->
+  <section data-page-node-id="MMi95nbThrpu6z6cqSr5Yn" id="v_home">
+    <div data-page-node-id="P6SDFK9andmj8lyHigYDGr" class="notip" id="nextBox"></div>
+    <div data-page-node-id="1goKJUPBXN6hZ9kjX2ptEN" class="grid g2">
+      <div data-page-node-id="4GlK6a6Rjvde4uKiSGqJz4" class="stat"><div data-page-node-id="WEABrHJIWDSCRFPi6Ekgtq" class="v" id="d_week"><!--pnid:tHKKPqOaBNH4U9KRh4wFAm-->0</div><div data-page-node-id="wDJQA1rcILH6olPW9MhaFk" class="l"><!--pnid:JcpOs0jovimgDb6Wx7uXSL-->本周训练次数</div></div>
+      <div data-page-node-id="l10FRofQ9RhUWRavJGPfGX" class="stat"><div data-page-node-id="j7Hn1tvwD3LWQS7PvZin72" class="v" id="d_vol"><!--pnid:FzEVcLAPqwiLGZENdWdWMb-->0</div><div data-page-node-id="g5BcMGSN1UbsLvebDO1hYL" class="l"><!--pnid:7h0Rkym7q8m8T8FXOxX5zb-->本周训练量(组)</div></div>
+      <div data-page-node-id="xP2ecFjnTKPi7RHWAw9ZLO" class="stat"><div data-page-node-id="cTbH5VGNTi0dX1YraKW8Zy" class="v" id="d_streak"><!--pnid:xfgBJJNCRbvsjWP6wuSONq-->0</div><div data-page-node-id="EXjt7Jvg7LdLIaWlUPcFhf" class="l"><!--pnid:1wqJv00Y5Rsi1dF0Sj4823-->连续训练天数</div></div>
+      <div data-page-node-id="Pnx24WfOzHp76KhWrCEsex" class="stat"><div data-page-node-id="Y6rQyR1Ltetyv1nr3mTcmt" class="v" id="d_recover"><!--pnid:oUUkbOTnx42dM1Av409jY1-->—</div><div data-page-node-id="GizFwyVEeRdq1IgTgrvBQr" class="l"><!--pnid:jZAjS4EkCtykerOXquHeFH-->恢复评分</div></div>
+    </div>
+    <div data-page-node-id="7XkkDfu4E5lqwc2qusdYE3" class="card">
+      <h2 data-page-node-id="D3PfJDXOnkQj8CoEHfSVhc"><span data-page-node-id="vJPIKtBcDMKjLTj5jGIPoR" class="ci"><!--pnid:ExPxOQtHH6e8a91ERQTINb-->📈</span><!--pnid:fTvOkCsH85Z6Ys7MdW84tu-->训练类别分布(近30天)</h2>
+      <div data-page-node-id="G5izky36rwP9E2dZY46kv1" id="catBars"></div>
+      <div data-page-node-id="5VvGNvqS72fN1JZYCV2mkr" class="legend">
+        <span data-page-node-id="W8CmFXSMo14Wxbc8As3GUK"><i data-page-node-id="izQpDajiDjOYOhcGLgEUDu" style="background:#3da5ff"></i><!--pnid:qhjBN9UU7KCHkYE2RvSx63-->篮球</span><span data-page-node-id="xKrC4WEIqwCQELia27fz1u"><i data-page-node-id="5hWWzVtNZfxgkasC6zgwrP" style="background:#a78bfa"></i><!--pnid:gP4lsb6H3OSdMjkDOWFLML-->弹跳</span>
+        <span data-page-node-id="AwyXjwLCQvreczfRvlyUJG"><i data-page-node-id="wKdY0lV3FxDYjGwSl1nCLg" style="background:#36d399"></i><!--pnid:k1ZVxsFrFEy4T2T89DqSx5-->功能性</span><span data-page-node-id="PZe8ZTeU78npW9aX75YdYD"><i data-page-node-id="hRmRoXFrdiuE46Q0ntGKXb" style="background:#ff7a3d"></i><!--pnid:rVE37Z580CLk4EPYsu7QJP-->健美</span>
+        <span data-page-node-id="0yiN4ey1arRZOdsNSpXd27"><i data-page-node-id="VxlkxVnijnCHRYp9eNGSNM" style="background:#ffd166"></i><!--pnid:h9UXvwhacyP22xDRRtgkUx-->有氧</span><span data-page-node-id="byw2x0DrW781Odajh1S3cN"><i data-page-node-id="8IQeZ2U4zPoIvcLzKGqK3c" style="background:#8b98a8"></i><!--pnid:V7xVNs42vn2kIF2mrUaqWH-->休息</span>
+      </div>
+    </div>
+    <div data-page-node-id="XM5VQ49AVyKmj5dQUablqC" class="card">
+      <h2 data-page-node-id="cYSsEFsXZSBdkaynwycKaX"><span data-page-node-id="ADshaw992nP0wkN8kjsHFI" class="ci"><!--pnid:oQYOKbnEJQCrwJvqoBGmkY-->🩺</span><!--pnid:qNYgdtYgQIq3sQr2mRmN2P-->身体速览</h2>
+      <div data-page-node-id="cXSPWDTynYEvUGQiLACfa2" class="grid g2" id="bodyDash"></div>
+      <div data-page-node-id="CSsQVswQU9yDrEtPQolbvE" class="mini" style="margin-top:8px"><!--pnid:QIh6DWsH8nIziOAGWV5ZAY-->在「我的 → 身体档案」录入与查看趋势</div>
+    </div>
+    <div data-page-node-id="wGdApDUhs3A9CssSJogys7" class="card">
+      <h2 data-page-node-id="IN49wKyvLqKIhMwXvirQaM"><span data-page-node-id="sNhIcbovI5Gg9o52EEChPe" class="ci"><!--pnid:u1YfDlcaW1dEonbMBPuYER-->🔮</span><!--pnid:dCgI6YsSOW1xDBM0EBmgTC-->预期效果预演</h2>
+      <div data-page-node-id="1no5rbVFJlYcVZRwXDPwoW" class="mini" id="preview"></div>
+    </div>
+    <div data-page-node-id="h8ZDd19HE40mXLaZSfLU9E" class="card">
+      <h2 data-page-node-id="WZ2u9vvmNV0YL5X9ow67k2"><span data-page-node-id="nKxNq2BffBseiy0Ex2kpIf" class="ci"><!--pnid:amg3lTwfYHeg8BxY3NF84O-->⏱</span><!--pnid:R1QJRSjCxc3lyRASiQHcvt-->最近记录</h2>
+      <div data-page-node-id="TNMNivRxbDWnw6rS8GiaWA" class="list" id="recent"></div>
+    </div>
+  </section>
+
+  <!--pnid:30iV9kh4XPk364T16zEegZ--><!-- 记录 -->
+  <section data-page-node-id="k2O8Cv0jsiqhl2hjhS7g0X" class="hidden" id="v_log">
+    <div data-page-node-id="7vM7lauI5kZa71IM9svUbF" class="card">
+      <h2 data-page-node-id="Ax2x3zTjnI39uO7IgsgWuj"><span data-page-node-id="8qtzsAJKpoU6ZctHc5A1gs" class="ci"><!--pnid:HuNtzh4pfcmprc2vcAG64A-->➕</span><!--pnid:vXVxbIwDZjnxlPTkLrhI4d-->新增记录</h2>
+      <label data-page-node-id="lqbHenJSvSoUCmKOjXeXsl"><!--pnid:OjPEcp9eOec8Tb2u0b7ABK-->日期</label>
+      <input data-page-node-id="o2IibQJbHYXM40me2rCeFw" id="f_date" type="date">
+      <label data-page-node-id="xGk6r1GreP1zr8IstXj9JE"><!--pnid:nmyM5X5Pu3kq7cVs2MczDY-->类型</label>
+      <select data-page-node-id="r839NhFt8tS8E7k9EzyJbB" id="f_cat">
+        <option data-page-node-id="nCqHkItDd8n7ZJodeXszg3" value="bd"><!--pnid:FN7RsbKdhzAGknzYkCAOZ1-->健美力量</option>
+        <option data-page-node-id="uRvfp65wXsIfIjKqOkKed4" value="bk"><!--pnid:XDsTDB0e5RLy5pEhZyC6rQ-->篮球技术/脚步</option>
+        <option data-page-node-id="3aGuXfrcpv6c8NFKr1qsUi" value="jp"><!--pnid:tvyCuOYgELovtp7cMzWj9r-->弹跳训练</option>
+        <option data-page-node-id="iFQhz9TGwjL1vuoH6hJuCF" value="fn"><!--pnid:dmpG00dk3AmalHTegqv3g5-->功能性训练</option>
+        <option data-page-node-id="l5GBx4mBtVZzBvjX7cYRfK" value="rx"><!--pnid:1692NOdOEZtiDPi6zM3lch-->有氧/恢复</option>
+        <option data-page-node-id="HgkGg9v97qPCCVT7XFfLbR" value="rest"><!--pnid:RMB69ian8EekFt1HYpZvzo-->🛌 休息日</option>
+      </select>
+      <div data-page-node-id="2jlldEHCet1NAxi3KIJcqp" id="trainFields">
+        <label data-page-node-id="zDQNxqOpSbbSNbnD9KJj0F"><!--pnid:699EY9iBVhrUhBKxULxUcb-->动作名称</label>
+        <input data-page-node-id="WnezjiQHdJTovSdypp0Oqs" id="f_ex" placeholder="如：深蹲 / 箱跳 / 三分投射">
+        <div data-page-node-id="AoK4JV5Fwp2YbKw7oiDSNC" class="grid g3">
+          <div data-page-node-id="7pDUczJ1UsGnTGXoIRrQn1"><label data-page-node-id="X3AuLDNu3nbenMfGi32RcL"><!--pnid:l7FdyteIPUgoJycUxnbVzD-->重量(kg)</label><input data-page-node-id="Dr48m7N7TQ4W6AJIliV5MA" id="f_w" placeholder="0=自重" type="number"></div>
+          <div data-page-node-id="6oHpSNvQu0xsiF99Iov49t"><label data-page-node-id="8ifQpFdBrVX6kEMudsGdTs"><!--pnid:3icVMVzcGop1qZa1zliequ-->组数</label><input data-page-node-id="oLHyZXPecQwrI0HTIdg1x2" id="f_s" placeholder="组" type="number"></div>
+          <div data-page-node-id="vSUE8ntse0TvKLWL7nwksN"><label data-page-node-id="oxZYpt0q85aLQJtW2XR7kF"><!--pnid:FKbbbMAS4Spu7pRROlO2CR-->次数</label><input data-page-node-id="NUdYItTJbLZOBpzJjqkO9z" id="f_r" placeholder="次" type="number"></div>
+        </div>
+        <div data-page-node-id="32mfsfEt5hUlgjvfKbaWSt" class="grid g2">
+          <div data-page-node-id="JQrtm7AgMipTjeKQuPLAdh"><label data-page-node-id="KuTrKTDyJfZIAEGyL3YCUQ"><!--pnid:OC35yrMnpeI7vjojUpObi5-->时长(分钟)</label><input data-page-node-id="akTjd10qAevGQ85zMMnx2B" id="f_dur" placeholder="可选" type="number"></div>
+          <div data-page-node-id="4TMsQezs3YHEFAd7bkFRk4"><label data-page-node-id="L4AlUcER9L6KpZHwXuGtWG"><!--pnid:ecOuPEkZbcbgzPZHFb9n4f-->主观强度 RPE</label><input data-page-node-id="7PARtJlWit0tILojYmPH9v" id="f_rpe" max="10" min="1" type="range" value="7"><span data-page-node-id="HeFccZD4Yw98HTxuxtwyB2" class="mini" id="rpev"><!--pnid:BLEx1P7jeeFfl0XuBil2Vl-->7</span></div>
+        </div>
+      </div>
+      <div data-page-node-id="xRVBa0svPiH4iLTyLITx6n" class="hidden" id="restFields">
+        <label data-page-node-id="H1X873oMt6pLfW8AQG8B4g"><!--pnid:VlMaqRDgWres8KQWpokskn-->休息方式</label>
+        <select data-page-node-id="l13BZq7XdDADUD1Dydogtm" id="f_resttype">
+          <option data-page-node-id="SbcBp12l2rRVpLwmcPupf4"><!--pnid:3hXmQWG8cT8nj3IKNhobw6-->完全休息</option>
+          <option data-page-node-id="D4ocezg7XT9yas6V6Y72eC"><!--pnid:TfjdMZp8Rh74mGVkP2p4Ns-->主动恢复(拉伸/泡沫轴)</option>
+          <option data-page-node-id="DXuhiC0RxpVDqPQOr91ExP"><!--pnid:dePlQhMP1er32gv7ns9xqT-->低强度有氧</option>
+          <option data-page-node-id="FDMnuXXJP8NWqVfm4KBXcb"><!--pnid:im4F0mPdXukFPXgZbshhOX-->睡眠补足</option>
+        </select>
+      </div>
+      <label data-page-node-id="oBxq3gXSNPKNVlF1arusoX"><!--pnid:g2EfXXnbjo7ZzJXufPCHzb-->备注</label>
+      <textarea data-page-node-id="3VHxaHs2iCSfZNIY2ekEoE" id="f_note" placeholder="如：膝盖略有不适 / 睡眠不足 / 状态很好"></textarea>
+      <button data-page-node-id="rtn45p7xp6FJ1uzUCRv4S1" id="saveBtn" style="margin-top:14px"><!--pnid:nKiSC7aSrRt6seDpkcAASQ-->保存</button>
+    </div>
+    <div data-page-node-id="ErZ9SIAeMZLpoebhekOqEz" class="card">
+      <h2 data-page-node-id="SFq89ieae4fkpMxHRjd9Bp"><span data-page-node-id="iJZaaQLszD1nOELwBH0HqE" class="ci"><!--pnid:fMH0KRqaESPBaqFej6TxEF-->🏷</span><!--pnid:8w7xjt9vqchg9B81HlSBuJ-->常用动作(点击填入)</h2>
+      <div data-page-node-id="oLR2xGA9ndCrDQF1mrAF8r" id="exLib"></div>
+    </div>
+  </section>
+
+  <!--pnid:n16JE4nt7JEKb90qa3PzWT--><!-- 计划 -->
+  <section data-page-node-id="bwbxXwOqFrqZkjXC4a15AK" class="hidden" id="v_plan">
+    <div data-page-node-id="ekyk7I1YSuM00DEFWfUh0a" class="card">
+      <h2 data-page-node-id="lgKS9EHwyDKwzXFMT9X6Xz"><span data-page-node-id="d93MLZCaLgTdGXN6JJgqeO" class="ci"><!--pnid:OmEgbKTt2Mt7AxpEBc2YVF-->🗓</span><!--pnid:JMp7u5WhfmtqgLCYN83YkT-->本周训练安排</h2>
+      <div data-page-node-id="YIYRrclEFNc2dwvJPg7zFO" class="seg" id="modeSwitch">
+        <div data-page-node-id="t1Z0btdy2rKoiSRi8z2LSC" class="on" data-mode="plan"><!--pnid:soFEDdCa5SGEO0jfz6ZW5k-->按计划训练</div>
+        <div data-page-node-id="rcG5WJzCqckqldoOs2hbrT" data-mode="free"><!--pnid:NqXQRGkdzEWG8OUMGNby4e-->自由训练</div>
+      </div>
+      <div data-page-node-id="RV7qqIxg19NX80d82igWBN" class="mini" id="restTip" style="margin-bottom:8px"></div>
+      <div data-page-node-id="Vbq4by7ab9Sx7vnXhaMKBg" id="weekPlan"></div>
+    </div>
+    <div data-page-node-id="x78hqnn6q3ktf9EFFlN9rV" class="card">
+      <h2 data-page-node-id="kZU8GsXNuYKzy4LYCtyw6C"><span data-page-node-id="mD7XzeXF6sqXz8MGuFJ3TV" class="ci"><!--pnid:yu4WTYYlSVLFw4CvvX2iCi-->💡</span><!--pnid:L0fCexHaZRH2LpIdx8iHhv-->下次训练推荐</h2>
+      <div data-page-node-id="2QvQKEEA6weiCRbGJx6DEq" id="recoBox"></div>
+      <div data-page-node-id="8DilOWCDahrCE9WTBlO55f" class="mini" style="margin-top:8px"><!--pnid:0IdlbNoYmXdcI75SncHXcY-->有历史的力量动作自动推算推荐重量(渐进超负荷；上次RPE≥9保重/减负)；无历史仅给动作+默认组数。</div>
+    </div>
+    <div data-page-node-id="9LAYchKWpoQenmNq80y89i" class="card">
+      <h2 data-page-node-id="tt1KuyZXsZe7tJhNUs3tim"><span data-page-node-id="cqAzkDkJO9PobqgGJxL3Sb" class="ci"><!--pnid:irEW53urLW6xbbpvMRLdbN-->🎯</span><!--pnid:q2DYiw4CjOXKlRIM5Q3Omj-->训练目标</h2>
+      <label data-page-node-id="AiOm8wn0cN4fhNzcZOjTfx"><!--pnid:eDc8UJM1qmecUoADuFhyzm-->主要目标</label>
+      <select data-page-node-id="DaHW5J5MOLMeikXf5kxd25" id="g_goal">
+        <option data-page-node-id="EJxcdVINyn72N8kfYNfkdW" value="balance"><!--pnid:jMFMuUQmp1G24p3S2UXecZ-->篮球+健美平衡(默认)</option>
+        <option data-page-node-id="rd5ei6HLojBBtRGUXoHg8Q" value="jump"><!--pnid:BNkyIgWvbuBzP6q0vYXcYw-->主攻弹跳/爆发</option>
+        <option data-page-node-id="QkfnzXEVR6anvE7MTUkYBd" value="mass"><!--pnid:lZ1pn90fmHKyj3KzOInN7u-->主攻增肌围度</option>
+        <option data-page-node-id="KE7v1ocTQBnMCa5za7eQqG" value="skill"><!--pnid:vEKCReAqlaY4IytGXokH8U-->主攻篮球技术</option>
+      </select>
+      <label data-page-node-id="UTklgmZ7j8TbZPaKpcjraz"><!--pnid:XGEaqD2CJbn1Xchs4ykoZB-->每周可训练天数</label>
+      <input data-page-node-id="ZuUKoBR09i0WxBI4QPcEsm" id="g_days" max="7" min="3" type="number" value="5">
+      <button data-page-node-id="kbNOvAFjLwTqUCkDD09VDP" class="sub" id="saveGoal" style="margin-top:12px"><!--pnid:3aney7s7Y4zAfm5hGTnOdY-->保存目标</button>
+    </div>
+  </section>
+
+  <!--pnid:BGDipijU1her79z9gu0Qwo--><!-- 日历 -->
+  <section data-page-node-id="kcQ17VbwPWRHcofeN4xrNv" class="hidden" id="v_cal">
+    <div data-page-node-id="KkuPSh1s2rkrWWtVot0mju" class="card">
+      <h2 data-page-node-id="BTnMGOssFaPjKTMm2Jd56R"><span data-page-node-id="rDu41gYsigUL18O7KmRsJ2" class="ci"><!--pnid:qZvsynb50ZUNwXhpFMnjCS-->📅</span><!--pnid:T1ayCgNNLIAiWlhTnejVCy-->训练日历</h2>
+      <div data-page-node-id="1SQoWNBTyEWtd9zT1uVNFC" class="calnav"><span data-page-node-id="vEKGNil8V0ovDYPsYXehze" id="calPrev"><!--pnid:xrxafQCcw9l3oaah3CxIhc-->‹</span><b data-page-node-id="Byjn8Tjv2IYhRYecq6xSTF" id="calTitle"></b><span data-page-node-id="g7dL3YHPlhtKhQN4bLu2MW" id="calNext"><!--pnid:oPVpiiyYX6GiWrcWK22TZ0-->›</span></div>
+      <div data-page-node-id="SFt4mr32LeZrs554e7Wl8m" class="cal" id="calGrid"></div>
+      <div data-page-node-id="iJUxeKtuJt0YCCoHy59RqR" class="legend">
+        <span data-page-node-id="dFUAXgx8ERaNYjfelThtDQ"><i data-page-node-id="BYgPiTAeB9wf8BS1bd0EK5" style="background:#3da5ff"></i><!--pnid:0EofVsTdQJhuvhp6tIfBxu-->篮球</span><span data-page-node-id="iOPv0eDfth7g6K7cP2xeXc"><i data-page-node-id="I81vhCyJfHknnS8k3Ca2i4" style="background:#a78bfa"></i><!--pnid:kq1UqTiLnbmIKB2Nz9Rrvn-->弹跳</span>
+        <span data-page-node-id="7gNbQFrQhhTmWJjnU0TGor"><i data-page-node-id="nxTLBDiyTfhwdfpxUR6Kve" style="background:#36d399"></i><!--pnid:lKOP2FtsVwvUkpHRqzc4sM-->功能性</span><span data-page-node-id="o7dRIT5v8tsrLJSkk93jXt"><i data-page-node-id="kvZlOytMs8h5q7zUC4Wo4B" style="background:#ff7a3d"></i><!--pnid:J8Q4t4vSHHzWUyio8g2khs-->健美</span>
+        <span data-page-node-id="oRjqjJjQAB0SM44ls9c0QH"><i data-page-node-id="V9D9iC24RN5COA4Vok7gs5" style="background:#ffd166"></i><!--pnid:KJ64DzjGUnqTZPRVPP6V73-->有氧</span><span data-page-node-id="J5ro4AwNu2l3MvjCRhBx6k"><i data-page-node-id="g9zZ4lJAu5FTP4lXZTAS7f" style="background:#8b98a8"></i><!--pnid:M6GoeUXJeGQhjsgeuAYIBC-->休息</span>
+        <span data-page-node-id="MXDK5TlLx8maXdJ2sLeejP" style="margin-left:auto"><!--pnid:6Zine4BvBL5blXukF52JtH-->角标=当日组数</span>
+      </div>
+    </div>
+    <div data-page-node-id="I6AmmyhJBTba4NgaC9JVqN" class="card">
+      <h2 data-page-node-id="ntqqTag0i7KNhNuen16zIK" id="calDetailTitle"><span data-page-node-id="ddm3a467s9nnPQy8dbWq2y" class="ci"><!--pnid:ZGtmtIV55EXwsr00zbCOJN-->🔍</span><!--pnid:LIkT5G5veS40X0K0FLacgP-->点击某天查看详情</h2>
+      <div data-page-node-id="7ZGzqNdoN2PUOWzi5emDFL" id="calDetail"></div>
+    </div>
+    <div data-page-node-id="TCa7qk7am49Psa7dNV9d0t" class="card">
+      <h2 data-page-node-id="UQKkhTnnCzFE0q7fPow2bc"><span data-page-node-id="2SmgPIeQL38XLGcRuI7dpV" class="ci"><!--pnid:IidZhaBzEiBZKi7zpWQhfv-->🏆</span><!--pnid:seI9UKgPyvGpCzHUvDoLLj-->本月训练成果</h2>
+      <div data-page-node-id="D1wGhrV6P3Us2cjPSa8jBE" class="mini" id="calSummary"></div>
+    </div>
+  </section>
+
+  <!--pnid:3PDMCAhPkt1W1Oe83ZE7j7--><!-- 我的 -->
+  <section data-page-node-id="OjWnQRqYMmk7XFlnrrtRH1" class="hidden" id="v_my">
+    <div data-page-node-id="DkOpdzCehjzKqhuvT8OMT8" class="seg" id="mySeg">
+      <div data-page-node-id="bwiTY6JFFALlEfjSQM1dl1" class="on" data-s="body"><!--pnid:mbjdpMFO0mxSUZmaCcxw92-->身体档案</div>
+      <div data-page-node-id="fK81QywOuhssmc0qimbaNA" data-s="ana"><!--pnid:MXEASXxANKrpmwU6BjG6k6-->训练分析</div>
+      <div data-page-node-id="gn22myW9zCRYw7icETKpLA" data-s="data"><!--pnid:F7Oqv0ekBErxJwSAXJlt2V-->数据同步</div>
+    </div>
+
+    <div data-page-node-id="63EADLpRdslo7jbhrKdufa" id="my_body">
+      <div data-page-node-id="a8LhGHtaXyYWjENhW2HNN9" class="card">
+        <h2 data-page-node-id="nrd7rSu3Uv8sRtIjRoPjPB"><span data-page-node-id="7UiCANfjsPLmW0Hp94y1H9" class="ci"><!--pnid:kDG0Vikk6P32byCwWqRHdS-->👤</span><!--pnid:rzlsKVO7vuPFAF1V3JOf3Y-->基础档案</h2>
+        <div data-page-node-id="Yof2BqG0AeqU63gRQtKdq0" class="grid g2">
+          <div data-page-node-id="6imREP88kYBgKe2gUA9fkT"><label data-page-node-id="pBqx9Is5OXEdhHwHpszK6D"><!--pnid:MAXJws85DcMWpE9rLB0k30-->身高(cm)</label><input data-page-node-id="mdEHSaOIzoqvbwFlLpPXnk" id="p_h" type="number" value="190"></div>
+          <div data-page-node-id="DXVV9vxIGg86pa0kF6B7u0"><label data-page-node-id="0yZzoRMBd8k8MB6uDR4NgG"><!--pnid:lmExxWqfjG79htBPzTozZq-->体重(kg)</label><input data-page-node-id="ZBJJtkdwKENjndxqV1t312" id="p_w" type="number" value="85"></div>
+        </div>
+        <label data-page-node-id="2BvE9qJQqLCuJehiafhg4h"><!--pnid:2Xw24BA7x0FbvpVrEjurom-->位置</label>
+        <select data-page-node-id="FMpEvhi2UauCXq1xPv47Cw" id="p_pos">
+          <option data-page-node-id="ed2D4LuHeHYFGE4E5w71FN" value="45"><!--pnid:5H46r9CZK7532LdqMElnzn-->四五号位(内线/锋线)</option>
+          <option data-page-node-id="PCNVbSrwPrcr1glrqgF3BB" value="23"><!--pnid:EelbnvAJ1h3JAOvLCyLRRC-->二三号位(外线)</option>
+          <option data-page-node-id="uY2AiPswvoQbH7GPfzrdV1" value="all"><!--pnid:MCBNZU4fSSbfzYBsJWDE6W-->全能</option>
+        </select>
+        <button data-page-node-id="eE1FNYEKrQCg0azN4qMdKO" class="sub" id="saveProfile" style="margin-top:12px"><!--pnid:uzdEalmF6FvzzSxcAPKJ8b-->保存档案</button>
+      </div>
+      <div data-page-node-id="fyjEa7iJSrCAvXPMs8y4eI" class="card">
+        <h2 data-page-node-id="833hPI4p3FZO7b6GZKxrYm"><span data-page-node-id="IopBm9fTc92Sc9JpI5xE2n" class="ci"><!--pnid:YzUWJnksWoMeKTnpyTAB9K-->➕</span><!--pnid:prlEVK7cHUIM4gyCTUpXnh-->录入体脂秤数据</h2>
+        <label data-page-node-id="JtJ34h7UGbKKQ7U7gKOpuk"><!--pnid:c9wVZilQsA4KNknsZFD8Jk-->测量日期</label>
+        <input data-page-node-id="zMxmsY6q8B9WjtN1shO6fv" id="b_date" type="date">
+        <div data-page-node-id="CizBDsu5VgSkXMfk0uVplp" class="grid g2">
+          <div data-page-node-id="FTrNpyPkqfQfOSVVDzgZQE"><label data-page-node-id="RI0zErI7T2BFY2sTBHsZk9"><!--pnid:0VhQLa0sj7OiVBgFMxWeo6-->体重(kg)</label><input data-page-node-id="IUPGtcDW7lBjriZura1L9w" id="b_w" step="0.1" type="number"></div>
+          <div data-page-node-id="F3HYpnCYIDLbfZuI9zYHJx"><label data-page-node-id="brKkdeiWQD44jYs194qx7I"><!--pnid:rWz9qSfWkbfyKS5kdCl3Ph-->体脂率(%)</label><input data-page-node-id="2t6bYPFUqxy7H2WYaiGnpP" id="b_fat" step="0.1" type="number"></div>
+        </div>
+        <div data-page-node-id="a9o2CucF6Mp8HEK0EkHZTu" class="grid g2">
+          <div data-page-node-id="oncjYRJy1eoh1zpYero6nY"><label data-page-node-id="zTqZm4E87T6pgnL1AFf3uo"><!--pnid:wlwTzUwqJGIPBSI92Pivee-->肌肉量(kg)</label><input data-page-node-id="y3MAXH9Kgz1UTSiNkmypEp" id="b_mus" step="0.1" type="number"></div>
+          <div data-page-node-id="TUZ55OBXAue4dqc1z38d2b"><label data-page-node-id="rn73xrYFldqBJqRYpQS3L7"><!--pnid:CthBKOkc45TbYpZ5LVzHAe-->水分(%)</label><input data-page-node-id="z47R1qLUq57UvrOhvBaAXX" id="b_water" step="0.1" type="number"></div>
+        </div>
+        <div data-page-node-id="G2eAH5Sg78QVg9fKRe78Lb" class="grid g3">
+          <div data-page-node-id="YXmpBZMH2GmfyesMfRfjXd"><label data-page-node-id="fwdd1JlYDre9fkKgHnPkt9"><!--pnid:EFFuvVgcSuE3MtGguaqyNi-->骨量(kg)</label><input data-page-node-id="jV49suRHBx9nGFN7LGQgpl" id="b_bone" step="0.1" type="number"></div>
+          <div data-page-node-id="zY5P6vr7WxUMwwABGvv7hu"><label data-page-node-id="FnwQ0UrCon7hPwdXPpgRPD"><!--pnid:cugjoJX6giWXuW7u981TvT-->内脏脂肪</label><input data-page-node-id="qj5k8GZu0ufvGdzVlDdLNk" id="b_visc" step="0.1" type="number"></div>
+          <div data-page-node-id="S4iuxr7wwho00V89f914hy"><label data-page-node-id="2PLe5bSz7QSmIYbWKdc3XI"><!--pnid:5HLpCHUokqoToFbUemdcGQ-->基础代谢</label><input data-page-node-id="URSAlCogDGJVdq3rg5zxn2" id="b_bmr" type="number"></div>
+        </div>
+        <label data-page-node-id="RXgMxAKNxHe2ndJepNZN9A"><!--pnid:NqJ16ldbL4BTxOg7faZTdn-->备注</label>
+        <textarea data-page-node-id="9vwDIFexU4cPRQGtzzJGcH" id="b_note" placeholder="如：晨起空腹 / 运动后"></textarea>
+        <button data-page-node-id="Y7gC4TAPAmO1GJXIlUNl1v" id="bSave" style="margin-top:14px"><!--pnid:Y6mj8084CnMG9NxDInhOB0-->保存身体数据</button>
+      </div>
+      <div data-page-node-id="XptZcU9H0D8G7vtQV1let7" class="card">
+        <h2 data-page-node-id="AxXmzz0XUvfYkYeNNx5Q1K"><span data-page-node-id="9C2Q9FKlfXfnmjKO0UDrKM" class="ci"><!--pnid:zicUXq1a96CTGwvACSNgP7-->📉</span><!--pnid:UBuHKhJphU06VraTQIVNlG-->体重 & 体脂率趋势</h2>
+        <div data-page-node-id="V3OfipnlePLeeQmfhH5tnN" id="bodyTrend"></div>
+      </div>
+      <div data-page-node-id="8INU2BxfDBvRhLnop7UNla" class="card">
+        <h2 data-page-node-id="tigqsKNndBFgT2mgHTCAYR"><span data-page-node-id="KXieGpRVbcO8kUYSG6N4kW" class="ci"><!--pnid:ehncRls70BWjH0Vy1cF25Q-->📋</span><!--pnid:qvpCTCKFj1d8nIzW4YjrGd-->历史测量</h2>
+        <div data-page-node-id="1kRwRztwUCtApLpcojLB06" class="list" id="bodyList"></div>
+      </div>
+    </div>
+
+    <div data-page-node-id="KbpD0QIDhKq5JehOowMDav" class="hidden" id="my_ana">
+      <div data-page-node-id="v3x26JVzpNZh6SD5A7l8Gc" class="card"><h2 data-page-node-id="hQytnT51PjtpoZnCBprXJK"><span data-page-node-id="wF66Fi1dizIatd2XAFNvoV" class="ci"><!--pnid:u1kKXyPhVH1npDDvA461x2-->📊</span><!--pnid:c6GNHqqRnjJPULJFqVaZ4a-->训练效果分析</h2><div data-page-node-id="YQHnxZQD3ZsehMR7vV2QUs" id="anaText"></div></div>
+      <div data-page-node-id="8o2PnEo0lyulRELYd1NPv8" class="card"><h2 data-page-node-id="LLxGhhBE8W0RSUmAwJ3hB8"><span data-page-node-id="BZpy1Otu7aHLvAyrDNVJeT" class="ci"><!--pnid:v6uLDOBjrh84MVJ4bEDVeQ-->😴</span><!--pnid:FLtTDPPr5FiT9IiAFSCLZG-->恢复与休息建议</h2><div data-page-node-id="zIr1z6lEQaDAlZQ6pry40T" id="restText"></div></div>
+      <div data-page-node-id="YWToaOtQvqYuGzJcm0AYxy" class="card"><h2 data-page-node-id="ZZnl5qnc0emzp298uf1u7v"><span data-page-node-id="0wOpKCZb6cFlqk3c0OFZSX" class="ci"><!--pnid:XY5iLfLE9ljtAWQNiZ6spW-->💪</span><!--pnid:AIDxVEOQqC2df7vzr1GdgC-->动作进步趋势</h2><div data-page-node-id="TtkiYNOJtGgR9tcjspzLIQ" id="progText"></div></div>
+      <div data-page-node-id="1CwCsbVL7gSzyoW8jLs9Wc" class="card"><h2 data-page-node-id="byfcBF8YExHZaQJ16m4zv1"><span data-page-node-id="HPWYvuK9NTHZ98SY520GnR" class="ci"><!--pnid:R05RxtTe4kRNcj50iJ3qzy-->🩺</span><!--pnid:MM55uazVVkNMawuKzNpTqy-->身体成分分析</h2><div data-page-node-id="hWQZtE0I3Tl2UZOtzKgjtp" id="bodyAna"></div></div>
+    </div>
+
+    <div data-page-node-id="Q6DtCDbO94P1FbPt1yaNnk" class="hidden" id="my_data">
+      <div data-page-node-id="kSN9hKNGnvvK2pwKbGYsP7" class="card">
+        <h2 data-page-node-id="Ubz0bIoo1QzCrM5KRnipd3"><span data-page-node-id="c4IRawCNgsBEt9XSAPNGLn" class="ci"><!--pnid:DNMJrFo5Mvd5BcEsmu6b5z-->☁️</span><!--pnid:4qOXmDtcPge7VKxHk4bBBt-->云端同步</h2>
+        <p data-page-node-id="dnTEXyzoGbAY8drbJVbXgn" class="mini"><!--pnid:NXuzYUirK0jACisFi6a398-->数据底座为 CSV，可发布到 WorkBuddy 资料库实现多端同步：<br data-page-node-id="eExuhcjjElrjUbrhM1Arry"><!--pnid:S2m36xvozudxYRWqFMLnrm-->
+        1) 导出 CSV 备份 2) 资料库新建工作台上传 CSV 并粘贴本页 3) 一键发布链接。</p>
+        <button data-page-node-id="GuzWEIGt4TIODzUSevGQhh" class="sub" id="exportBtn"><!--pnid:jxiADTX6EyoajBgNozl4D8-->导出 CSV 备份</button>
+        <button data-page-node-id="yMV2yPSqJkgqOWvJCrxAn5" class="sub" id="importBtn" style="margin-top:8px"><!--pnid:vtbosy0tShmpZshKUSthZG-->导入 CSV</button>
+        <input data-page-node-id="g3Daggypdw1IxfxXeJGrwW" accept=".csv" class="hidden" id="importFile" type="file">
+        <button data-page-node-id="lWSBuwXJuC7586ja0os7Xq" class="sub danger" id="resetBtn" style="margin-top:8px"><!--pnid:qmZHxnX3XiyqR3JBGsgrzO-->清空全部数据</button>
+      </div>
+      <div data-page-node-id="Ic8nIG3f5skFcx0EFSvsg7" class="card">
+        <h2 data-page-node-id="ucyFQ7DmSm27ZtNxFYvHWH"><span data-page-node-id="NahpMupoJxma0ZNAn6Sb9p" class="ci"><!--pnid:DDQYi6DDLxED2wpMvrOR3x-->📋</span><!--pnid:ouUpksitnJ7SARsLpHH2hI-->全部训练记录(<span data-page-node-id="Mjp1UldkJGilfDQzdBcah8" id="cnt"><!--pnid:GVDT4qdNfomihJT5YOtGoG-->0</span><!--pnid:JF9eTO5Oz81gxzrWjPmBmf-->)</h2>
+        <div data-page-node-id="9Otenz8VBhYZz8Vg2mFWRf" style="overflow:auto; max-height:320px">
+          <table data-page-node-id="CpnAzede7Nkpf1DcktDqWz" id="allTable"><thead data-page-node-id="byTySt6V9vPvORhPURgo50"><tr data-page-node-id="wFU4sNF0jaOC7sHqaYrlEt">
+            <th data-page-node-id="3q3FNloBcA18IH0Olqw2CS"><!--pnid:LEouF8GDOgo79E00OJ2wwk-->日期</th><th data-page-node-id="bytNobzKtBE4Sl1a0U2W4s"><!--pnid:8OcWIdMRtNwzev7WZST386-->类型</th><th data-page-node-id="FBWYCKMCentLim7E5OdbRB"><!--pnid:LXPMiURRFSX6ievGsIjPpw-->动作</th><th data-page-node-id="yKOspGVGKKVOnEQs0kOsnK"><!--pnid:oF1BpqsUbNAR4pkX6u5LNy-->重量</th><th data-page-node-id="L8MjJj3dH5pxhoBCBrFzG6"><!--pnid:jhln0GtMhagq8goLfTkVeh-->组×次</th><th data-page-node-id="wZ8ts85uzVErs47EeWLRQj"><!--pnid:YuHTzdtVu4GzZZ6gaANKt5-->RPE</th>
+          </tr></thead><tbody data-page-node-id="jHjxvNiSJFpuNd5M6ArHT1"></tbody></table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div data-page-node-id="YgWjLQxer0hLGSshYAGtmV" class="tabs">
+  <div data-page-node-id="1UP7X3oY1BHGAygWUJ21f6" class="on" data-v="v_home"><span data-page-node-id="739naNbyIffFjnLY5Tzatf" class="ic"><!--pnid:8FqNk5Fqb96RNCHGfmlobS-->🏠</span><!--pnid:EDMdX1OPMiaFHAL4fMrF3Z-->概览</div>
+  <div data-page-node-id="wlrpd2FMnVpPkVAwbwaJ4d" data-v="v_log"><span data-page-node-id="IvNoQxA6wu2SzsD53kPUCC" class="ic"><!--pnid:GRgUWhsN5YnrizLqsMup5u-->➕</span><!--pnid:ME25oEQtMB9cSABr5oDY9h-->记录</div>
+  <div data-page-node-id="gWE7fJLtB0GajHX2zzVtB4" data-v="v_plan"><span data-page-node-id="UvG9LAMYtNsYqiiZ7PQNs3" class="ic"><!--pnid:dudHvlgN8JKMMxcTtiPkBo-->🗓</span><!--pnid:QTiRMSYixQyK9GMtwSQcfW-->计划</div>
+  <div data-page-node-id="nmFj9Rrd5oydU4rCYzCQZ6" data-v="v_cal"><span data-page-node-id="aCbbiQiMYl4rPoebZydSSY" class="ic"><!--pnid:0HHXP78HbYQ33EHYmnKfI9-->📅</span><!--pnid:kuKz1bBVa5CRe6zV9kuqvI-->日历</div>
+  <div data-page-node-id="QLPpLCqXVhZfxKWqFzHMhq" data-v="v_my"><span data-page-node-id="IvdPIsohtEYfSZDT570MAH" class="ic"><!--pnid:Ledz5C0w1kiKApXQIDVGmU-->👤</span><!--pnid:INfPsYMyj9wgPhpBMGtdza-->我的</div>
+</div>
+
+<script data-page-node-id="VNWJU1mnLWdBM3hloO4Q5O" data-pnid-children="uI7wRNUCW1nzPpxqxYTz8Q">
+/* ===== 数据层 ===== */
+const KEY='bball_fitness_v3';
+const CAT={
+  bk:{name:'篮球',color:'#3da5ff'}, jp:{name:'弹跳',color:'#a78bfa'},
+  fn:{name:'功能性',color:'#36d399'}, bd:{name:'健美',color:'#ff7a3d'},
+  rx:{name:'有氧',color:'#ffd166'}, rest:{name:'休息',color:'#8b98a8'}
+};
+const EXLIB={
+  bk:['三分投射','中距离跳投','运球组合','防守滑步','挡拆脚步','低位脚步','变向突破','罚球'],
+  jp:['箱跳(30/45/60cm)','跳深','连续纵跳','蛙跳','负重半蹲跳','单腿跳','助跑摸高','敏捷梯'],
+  fn:['平板支撑','侧桥','农夫行走','药球抛接','单腿硬拉','核心抗旋','战绳','TRX划船'],
+  bd:['深蹲','硬拉','卧推','上斜卧推','引体向上','杠铃划船','肩推','腿举','臀桥','弯举'],
+  rx:['慢跑','骑车','划船机','跳绳','泡沫轴放松','瑜伽拉伸','游泳']
+};
+const MUSCLE={'深蹲':['腿'],'硬拉':['腿','背'],'卧推':['胸'],'上斜卧推':['胸','肩'],
+  '引体向上':['背'],'杠铃划船':['背'],'肩推':['肩'],'腿举':['腿'],'臀桥':['腿'],
+  '弯举':['臂'],'箱跳':['腿'],'跳深':['腿'],'负重半蹲跳':['腿'],'单腿跳':['腿'],
+  '平板支撑':['核心'],'侧桥':['核心'],'农夫行走':['核心'],'核心抗旋':['核心'],
+  '单腿硬拉':['腿','核心'],'药球抛接':['核心'],'TRX划船':['背']};
+let S={profile:{h:190,w:85,pos:'45',goal:'balance',days:5},
+       records:[], body:[], plan:{mode:'plan'},
+       cal:{y:new Date().getFullYear(), m:new Date().getMonth(), sel:null},
+       myTab:'body'};
+
+function load(){try{const r=localStorage.getItem(KEY); if(r){S=JSON.parse(r);
+  S.cal=S.cal||{y:new Date().getFullYear(),m:new Date().getMonth(),sel:null}; S.myTab=S.myTab||'body';}}catch(e){}}
+function save(){localStorage.setItem(KEY,JSON.stringify(S));}
+
+/* ===== 工具 ===== */
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,'0');
+const todayStr=()=>{const d=new Date();return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());};
+function daysBetween(a,b){return Math.round((new Date(b)-new Date(a))/86400000);}
+function catName(c){return (CAT[c]||{}).name||c;}
+function dateStr(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+function getWeek(){const d=new Date(); const day=(d.getDay()+6)%7; const mon=new Date(d); mon.setDate(d.getDate()-day);
+  const arr=[]; for(let i=0;i<7;i++){const x=new Date(mon); x.setDate(mon.getDate()+i); arr.push(dateStr(x));} return arr;}
+function lastN(n){const start=new Date(); start.setDate(start.getDate()-n); const s=dateStr(start);
+  return S.records.filter(r=>r.date>=s);}
+
+/* ===== 周期模板 ===== */
+const WEEK=[
+  {d:'周一',title:'下肢力量 + 弹跳基础',cat:'bd',items:['深蹲 4×6','腿举 3×10','罗马尼亚硬拉 3×8','箱跳(45cm) 4×5']},
+  {d:'周二',title:'篮球脚步 + 功能性核心',cat:'bk',items:['防守滑步 3×40s','变向突破 4×','低位脚步 3×','平板支撑 3×60s']},
+  {d:'周三',title:'上肢推(胸/肩)',cat:'bd',items:['卧推 4×8','上斜卧推 3×10','肩推 3×12','双杠臂屈伸 3×10']},
+  {d:'周四',title:'恢复日',cat:'rest',items:['完全休息或主动恢复','拉伸/泡沫轴 15min','睡眠 8h']},
+  {d:'周五',title:'弹跳强化 + 敏捷',cat:'jp',items:['跳深 4×4','连续纵跳 4×8','敏捷梯 4×','单腿跳 3×']},
+  {d:'周六',title:'上肢拉(背/臂) + 核心',cat:'bd',items:['引体向上 4×','杠铃划船 4×10','弯举 3×12','侧桥 3×']},
+  {d:'周日',title:'篮球对抗/比赛 + 恢复',cat:'bk',items:['半场对抗 40min','核心抗旋 3×','拉伸放松']}
+];
+
+/* ===== 恢复评分 ===== */
+function recoveryScore(){
+  const r3=lastN(3).filter(r=>r.cat!=='rest');
+  const sets=r3.reduce((a,r)=>a+(+r.sets||0),0);
+  const avgRpe=r3.length?r3.reduce((a,r)=>a+(+r.rpe||0),0)/r3.length:5;
+  let sc=100 - sets*2.0 - Math.max(0,avgRpe-5)*6;
+  const rest2=S.records.filter(r=>r.cat==='rest' && daysBetween(r.date,todayStr())<=2).length;
+  sc+=rest2*10;
+  return Math.max(5,Math.min(100,Math.round(sc)));
+}
+function consecutiveTrainDays(){
+  let c=0; let cur=new Date();
+  for(let i=0;i<60;i++){
+    const ds=dateStr(cur);
+    const recs=S.records.filter(r=>r.date===ds);
+    if(!recs.length) break;
+    if(recs.every(r=>r.cat==='rest')) break;
+    c++; cur.setDate(cur.getDate()-1);
+  }
+  return c;
+}
+
+/* ===== 动态排休息日 ===== */
+function buildWeekPlan(){
+  const rec=recoveryScore();
+  if(S.records.length===0){
+    // 首次使用:只保留固定周四恢复日,让用户先动起来
+    return WEEK.map((w,i)=> i===3
+      ? {...w,isRest:true,cat:'rest',title:'恢复日',items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 7-9h']}
+      : {...w,isRest:false});
+  }
+  let restCount=Math.max(1, 7-(S.profile.days||5));
+  if(rec<45) restCount++;
+  if(consecutiveTrainDays()>=5) restCount++;
+  restCount=Math.min(4,restCount);
+  const restIdx=[3,6,1,4].slice(0,restCount);
+  const dow=(new Date().getDay()+6)%7;
+  if(rec<35 && !restIdx.includes(dow)) restIdx.push(dow);
+  return WEEK.map((w,i)=>{
+    if(i===3) return {...w, isRest:true, cat:'rest', title:'恢复日', items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 7-9h']};
+    if(restIdx.includes(i)) return {...w, isRest:true, cat:'rest', title:'恢复日(动态安排)', items:['低强度活动','拉伸/泡沫轴','补水+睡眠']};
+    return {...w, isRest:false};
+  });
+}
+
+/* ===== 视图切换 ===== */
+function show(v){
+  document.querySelectorAll('.tabs div').forEach(t=>t.classList.toggle('on',t.dataset.v===v));
+  ['v_home','v_log','v_plan','v_cal','v_my'].forEach(s=>$(s).classList.toggle('hidden',s!==v));
+  if(v==='v_home')renderHome(); if(v==='v_plan')renderPlan(); if(v==='v_cal')renderCal();
+  if(v==='v_my')renderMy();
+}
+document.querySelectorAll('.tabs div').forEach(t=>t.onclick=()=>show(t.dataset.v));
+
+/* ===== 概览 ===== */
+function renderHome(){
+  const wk=getWeek(); const wr=S.records.filter(r=>wk.includes(r.date)&&r.cat!=='rest');
+  $('d_week').textContent=wr.length;
+  $('d_vol').textContent=wr.reduce((a,r)=>a+(+r.sets||0),0);
+  $('d_streak').textContent=consecutiveTrainDays();
+  $('d_recover').textContent=(S.records.length?recoveryScore():'—')+(S.records.length?'分':'');
+  const cat30={}; lastN(30).forEach(r=>cat30[r.cat]=(cat30[r.cat]||0)+(+r.sets||0||1));
+  const maxc=Math.max(1,...Object.values(cat30));
+  $('catBars').innerHTML=Object.keys(CAT).map(c=>{
+    const v=cat30[c]||0; const pct=Math.max(v?6:0,Math.round(v/maxc*100));
+    return `<div class="barlbl"><span>${CAT[c].name}</span><span>${v}${c==='rest'?'次':'组'}</span></div>
+      <div class="bar"><i style="width:${pct}%;background:${CAT[c].color}"></i></div>`;}).join('');
+  const lastB=S.body.slice(-1)[0];
+  $('bodyDash').innerHTML=lastB?[
+    ['体重',(lastB.weight||S.profile.w)+'kg'],['体脂率',(lastB.fat||'—')+'%'],
+    ['肌肉量',(lastB.muscle||'—')+'kg'],['BMI',bmi(lastB.weight||S.profile.w)]
+  ].map(x=>`<div class="stat"><div class="v">${x[1]}</div><div class="l">${x[0]}</div></div>`).join('')
+  :'<div class="mini">暂无体脂秤数据，去「我的 → 身体档案」录入。</div>';
+  const goal=S.profile.goal;
+  const proj= wr.length>=4 ? `本周已训练 ${wr.length} 次，频率良好。按当前一致性推进：`+
+    (goal==='jump'?`<br>· 弹跳：8-12周纵跳预计 +4~8cm`:goal==='mass'?`<br>· 增肌：8-12周围度 +1.5~3cm`:
+     goal==='skill'?`<br>· 技术：4-8周投篮/脚步提升`:`<br>· 平衡：弹跳与围度同步增长，更适配四五号位`)+
+    `<br>· 体脂：规律力量+有氧 12周约 -2~4%`
+    : `本周仅 ${wr.length} 次，频率偏低。建议先稳定到每周 4-5 次。`;
+  $('preview').innerHTML=proj+`<br><span class="mini">※ 基于一致性的启发式预估，非医疗承诺。</span>`;
+  const recs=S.records.slice(-6).reverse();
+  $('recent').innerHTML=recs.length?recs.map(r=>{
+    const c=CAT[r.cat]||CAT.bd;
+    const body=r.cat==='rest'?`<div class="ex">${r.note||'休息恢复'}</div>`
+      :`<div class="ex">${r.ex} · ${r.weight?r.weight+'kg ':''}${r.sets||''}组×${r.reps||''}次 · RPE${r.rpe}</div>`;
+    return `<div class="item"><b>${r.date}</b> <span class="pill ${r.cat}">${c.name}</span>${body}</div>`;}).join('')
+    :'<div class="mini">还没有记录，去「记录」页添加第一条吧。</div>';
+  $('nextBox').innerHTML='<b>👉 今日建议：</b>'+nextReco().headline;
+}
+function bmi(w){return (w/Math.pow(S.profile.h/100,2)).toFixed(1);}
+
+/* ===== 推荐重量 ===== */
+function exHistory(ex){return S.records.filter(r=>r.ex===ex && r.weight>0).sort((a,b)=>a.date<b.date?-1:1);}
+function suggestLoad(ex,defSets,defReps){
+  const h=exHistory(ex);
+  if(!h.length) return {sets:defSets,reps:defReps,weight:0,note:'首练从轻(空杆/自重)，找动作感觉'};
+  const last=h[h.length-1]; let w=last.weight,sets=defSets,reps=defReps,note='保持';
+  if(last.rpe>=9){w=Math.max(0,w-2.5); note='上次偏重(RPE'+last.rpe+')，保重或-2.5kg';}
+  else if(last.rpe<=6){w=+(w+(w>=60?2.5:1.25)).toFixed(1); note='上次较轻，渐进+重量';}
+  else {if(reps&&reps<12){reps=reps+1; note='维持重量，+1次渐进';} else {w=+(w+1.25).toFixed(1); note='+重量渐进';}}
+  return {sets,reps,weight:w,note:note+'(上次 '+last.weight+'kg×'+last.sets+'×'+last.reps+')'};
+}
+function parseItem(it){
+  const m=it.match(/^(.+?)\s+(\d+)[×x](\d+)\s*$/); if(m)return{ex:m[1].trim(),sets:+m[2],reps:+m[3]};
+  const m2=it.match(/^(.+?)\s+(\d+)[×x]\s*$/); if(m2)return{ex:m2[1].trim(),sets:+m2[2],reps:0};
+  return{ex:it.trim(),sets:3,reps:0};
+}
+
+/* ===== 动态推荐 ===== */
+function muscleLoad(win){const recs=lastN(win).filter(r=>r.cat!=='rest'); const m={};
+  recs.forEach(r=>{const ms=MUSCLE[r.ex]||['其他']; const load=(+r.sets||0)*(+r.reps||0||1); ms.forEach(x=>m[x]=(m[x]||0)+load);}); return m;}
+function nextReco(){
+  const wp=buildWeekPlan(); const dow=(new Date().getDay()+6)%7; const t=wp[dow];
+  if(S.plan.mode==='plan'){
+    if(t.isRest) return {headline:`今天是恢复日，建议休息/主动拉伸，睡眠 8h。`,plan:{...t,items:['完全休息或主动恢复','拉伸泡沫轴 15min','睡眠 8h']}};
+    return {headline:`今天(${t.d})安排「${t.title}」`,plan:t};
+  }
+  const lastJump=S.records.filter(r=>r.cat==='jp').slice(-1)[0];
+  const dj=lastJump?daysBetween(lastJump.date,todayStr()):99;
+  const lastBk=S.records.filter(r=>r.cat==='bk').slice(-1)[0];
+  const db=lastBk?daysBetween(lastBk.date,todayStr()):99;
+  const y=dateStr(new Date(new Date().setDate(new Date().getDate()-1)));
+  const yMusc=new Set(); S.records.filter(r=>r.date===y).forEach(r=>(MUSCLE[r.ex]||[]).forEach(x=>yMusc.add(x)));
+  const rec=recoveryScore();
+  let sug;
+  if(rec<40) sug={title:'恢复日(恢复评分偏低)',cat:'rest',items:['完全休息或主动恢复','拉伸泡沫轴 15min','睡眠 8h']};
+  else if(dj>=5) sug={title:'弹跳/爆发训练',cat:'jp',items:['跳深 4×4','连续纵跳 4×8','箱跳(60cm) 4×5','单腿跳 3×']};
+  else if(db>=4) sug={title:'篮球专项训练',cat:'bk',items:['三分投射 5×20','变向突破 4×','防守滑步 3×40s','低位脚步 3×']};
+  else if([...yMusc].some(x=>['腿','背','胸'].includes(x))) sug={title:'功能性 + 有氧恢复',cat:'fn',items:['平板支撑 3×60s','核心抗旋 3×','慢跑 20min','拉伸放松']};
+  else sug={title:'健美力量(下肢为主)',cat:'bd',items:['深蹲 4×6','腿举 3×10','罗马尼亚硬拉 3×8','臀桥 3×12']};
+  return {headline:`推荐「${sug.title}」`,plan:sug};
+}
+
+/* ===== 计划页 ===== */
+function renderPlan(){
+  const wp=buildWeekPlan(); const wk=getWeek(); const dow=(new Date().getDay()+6)%7;
+  const restN=wp.filter(w=>w.isRest).length;
+  $('restTip').innerHTML=`恢复评分 <b>${recoveryScore()}</b> · 连续训练 <b>${consecutiveTrainDays()}</b> 天 · 本周安排 <b>${restN}</b> 个恢复日（按恢复情况动态调整）`;
+  $('weekPlan').innerHTML=wp.map((w,i)=>{
+    const done=S.records.some(r=>r.date===wk[i]&&r.cat===w.cat && (w.isRest?r.cat==='rest':r.cat!=='rest'));
+    const today=i===dow; const col=CAT[w.cat].color;
+    let detail='';
+    if(!w.isRest){
+      detail=w.items.map(it=>{const p=parseItem(it); const s=suggestLoad(p.ex,p.sets,p.reps);
+        const loadTxt=s.weight>0?`${s.weight}kg ×${s.sets}组${s.reps?'×'+s.reps+'次':''}`:`${s.sets}组${s.reps?'×'+s.reps+'次':''}`;
+        return `<div class="exrec"><div class="e">${p.ex}</div><div class="s">建议：${loadTxt}</div><div class="w">${s.note}</div></div>`;}).join('');
+    } else {
+      detail=`<div class="exrec"><div class="s">${w.items.join(' · ')}</div></div>`;
+    }
+    return `<div class="rec ${today?'open':''}" style="border-left-color:${col}">
+      <div class="rhead"><span class="arrow">›</span>
+        <div class="t">${w.d}${today?' · 今天':''}
+          <span class="pill ${w.cat}">${w.isRest?'休息':CAT[w.cat].name}</span> ${done?'✅':''}</div>
+        <div class="d">${w.title}</div></div>
+      <div class="rbody">${detail}
+        ${today&&!w.isRest?`<button class="green" style="margin-top:9px" onclick="quickLog('${w.cat}')">快速记录今天</button>`:''}
+        ${today&&w.isRest?`<button class="sub" style="margin-top:9px" onclick="quickLog('rest')">记录今天休息</button>`:''}
+      </div></div>`;
+  }).join('');
+  document.querySelectorAll('#weekPlan .rhead').forEach(h=>h.onclick=()=>h.parentElement.classList.toggle('open'));
+  const rec=nextReco();
+  let recDet='';
+  if(rec.plan.cat==='rest'){recDet=`<div class="exrec"><div class="s">${rec.plan.items.join(' · ')}</div></div>`;}
+  else{recDet=rec.plan.items.map(it=>{const p=parseItem(it);const s=suggestLoad(p.ex,p.sets,p.reps);
+    const loadTxt=s.weight>0?`${s.weight}kg ×${s.sets}组${s.reps?'×'+s.reps+'次':''}`:`${s.sets}组${s.reps?'×'+s.reps+'次':''}`;
+    return `<div class="exrec"><div class="e">${p.ex}</div><div class="s">${loadTxt}</div><div class="w">${s.note}</div></div>`;}).join('');}
+  $('recoBox').innerHTML=`<div class="rec" style="border-left-color:${CAT[rec.plan.cat].color}">
+    <div class="t">${rec.headline}</div><div class="d">${CAT[rec.plan.cat].name}</div>${recDet}
+    <div class="mini" style="margin-top:6px">当前模式：${S.plan.mode==='plan'?'按计划训练':'自由训练'}</div></div>`;
+  $('g_goal').value=S.profile.goal; $('g_days').value=S.profile.days;
+}
+function quickLog(cat){$('f_cat').value=cat; onCatChange(); show('v_log'); $('f_date').value=todayStr();}
+
+/* ===== 日历 ===== */
+function renderCal(){
+  const y=S.cal.y,m=S.cal.m;
+  $('calTitle').textContent=y+'年'+(m+1)+'月';
+  const startDow=(new Date(y,m,1).getDay()+6)%7; const daysIn=new Date(y,m+1,0).getDate();
+  const map={}; S.records.forEach(r=>{map[r.date]=(map[r.date]||[]).concat(r);});
+  const today=todayStr();
+  let html=['一','二','三','四','五','六','日'].map(d=>`<div class="hd">${d}</div>`).join('');
+  for(let i=0;i<startDow;i++) html+=`<div class="cell empty"></div>`;
+  for(let d=1;d<=daysIn;d++){
+    const ds=y+'-'+pad(m+1)+'-'+pad(d); const recs=map[ds]||[]; const isToday=ds===today;
+    let dots='',badge='';
+    if(recs.length){
+      const cols=[...new Set(recs.map(r=>CAT[r.cat]?CAT[r.cat].color:'#666'))].slice(0,4);
+      dots=`<div class="dots">${cols.map(c=>`<span class="dt" style="background:${c}"></span>`).join('')}</div>`;
+      const sets=recs.reduce((a,r)=>a+(+r.sets||0),0);
+      badge=`<span class="badge">${sets?sets+'组':'休'}</span>`;
+    }
+    html+=`<div class="cell ${isToday?'today':''}" data-d="${ds}"><div class="dn">${d}</div>${dots}${badge}</div>`;
+  }
+  $('calGrid').innerHTML=html;
+  $('calGrid').querySelectorAll('.cell[data-d]').forEach(c=>c.onclick=()=>showDay(c.dataset.d));
+  const mRecs=S.records.filter(r=>r.date.startsWith(y+'-'+pad(m+1)));
+  const mDays=new Set(mRecs.filter(r=>r.cat!=='rest').map(r=>r.date)).size;
+  const mSets=mRecs.reduce((a,r)=>a+(+r.sets||0),0);
+  $('calSummary').innerHTML=`本月训练 <b>${mDays}</b> 天，共 <b>${mSets}</b> 组。${mDays>=16?'频率优秀 💪':mDays>=10?'频率良好 👍':'建议提高训练频率。'}`;
+  if(S.cal.sel)showDay(S.cal.sel); else{$('calDetailTitle').innerHTML='<span class="ci">🔍</span>点击某天查看详情';$('calDetail').innerHTML='';}
+}
+function showDay(ds){
+  S.cal.sel=ds; const recs=S.records.filter(r=>r.date===ds);
+  $('calDetailTitle').innerHTML=`<span class="ci">🔍</span>${ds}${ds===todayStr()?' (今天)':''}`;
+  if(!recs.length){$('calDetail').innerHTML=`<div class="mini">这天没有记录。</div><button class="sub" style="margin-top:8px" onclick="logThis('${ds}')">补记这天</button>`;return;}
+  $('calDetail').innerHTML=recs.map(r=>{
+    if(r.cat==='rest') return `<div class="exrec"><div class="e"><span class="badge-rest">休息</span> ${r.note||'休息恢复'}</div></div>`;
+    return `<div class="exrec"><div class="e">${CAT[r.cat].name} · ${r.ex}</div>
+      <div class="s">${r.weight?r.weight+'kg ':''}${r.sets||''}组×${r.reps||''}次 · 时长${r.dur||0}min · RPE${r.rpe}</div>
+      ${r.note?`<div class="w">备注：${r.note}</div>`:''}</div>`;}).join('');
+}
+function logThis(ds){show('v_log'); $('f_date').value=ds;}
+$('calPrev').onclick=()=>{S.cal.m--; if(S.cal.m<0){S.cal.m=11;S.cal.y--;} S.cal.sel=null; renderCal();};
+$('calNext').onclick=()=>{S.cal.m++; if(S.cal.m>11){S.cal.m=0;S.cal.y++;} S.cal.sel=null; renderCal();};
+
+/* ===== 我的(分支) ===== */
+function renderMy(){
+  const tab=S.myTab||'body';
+  document.querySelectorAll('#mySeg div').forEach(d=>d.classList.toggle('on',d.dataset.s===tab));
+  ['my_body','my_ana','my_data'].forEach(id=>$(id).classList.add('hidden'));
+  $('my_'+tab).classList.remove('hidden');
+  if(tab==='body')renderBody(); if(tab==='ana')renderAna(); if(tab==='data')renderData();
+}
+document.querySelectorAll('#mySeg div').forEach(d=>d.onclick=()=>{S.myTab=d.dataset.s; save(); renderMy();});
+
+/* ===== 身体 ===== */
+function renderBody(){
+  $('b_date').value=todayStr();
+  $('p_h').value=S.profile.h; $('p_w').value=S.profile.w; $('p_pos').value=S.profile.pos;
+  const trend=S.body.slice(-10);
+  if(trend.length>=2){
+    $('bodyTrend').innerHTML=lineChart(trend.map(b=>b.weight),'体重(kg)','#3da5ff')
+      +(trend.some(b=>b.fat)?lineChart(trend.map(b=>b.fat),'体脂率(%)','#ff7a3d'):'');
+  } else $('bodyTrend').innerHTML='<div class="mini">录入≥2次后显示趋势曲线。</div>';
+  $('bodyList').innerHTML=S.body.slice().reverse().map(b=>
+    `<div class="item"><b>${b.date}</b>
+     <div class="ex">体重 ${b.weight||'—'}kg · 体脂 ${b.fat||'—'}% · 肌肉 ${b.muscle||'—'}kg · 水分 ${b.water||'—'}% · 骨量 ${b.bone||'—'}kg · 内脏 ${b.visc||'—'} · 基代 ${b.bmr||'—'}kcal</div>
+     ${b.note?`<div class="meta">${b.note}</div>`:''}</div>`).join('')
+    || '<div class="mini">还没有体脂秤数据。</div>';
+}
+function lineChart(vals,label,color){
+  const W=300,H=90,p=18; const max=Math.max(...vals),min=Math.min(...vals); const rng=(max-min)||1;
+  const pt=v=>{const x=p+(W-2*p)*(v.i)/(vals.length-1);const y=H-p-(H-2*p)*(v.v-min)/rng;return x.toFixed(1)+','+y.toFixed(1);};
+  const pts=vals.map((v,i)=>pt({i,v})).join(' ');
+  return `<div class="sec">${label}</div><svg viewBox="0 0 ${W} ${H}" width="100%" height="90">
+    <polyline points="${pts}" fill="none" stroke="${color}" stroke-width="2.2" stroke-linejoin="round"/>
+    ${vals.map((v,i)=>{const [x,y]=pt({i,v}).split(',');return `<circle cx="${x}" cy="${y}" r="2.6" fill="${color}"/>`;}).join('')}
+    <text x="${p}" y="12" fill="#8fa1b5" font-size="10">${max.toFixed(1)}</text>
+    <text x="${p}" y="${H-4}" fill="#8fa1b5" font-size="10">${min.toFixed(1)}</text></svg>`;
+}
+$('bSave').onclick=()=>{
+  const b={date:$('b_date').value||todayStr(),weight:+$('b_w').value||0,fat:+$('b_fat').value||0,
+    muscle:+$('b_mus').value||0,water:+$('b_water').value||0,bone:+$('b_bone').value||0,
+    visc:+$('b_visc').value||0,bmr:+$('b_bmr').value||0,note:$('b_note').value.trim()};
+  if(!b.weight){alert('至少填体重');return;}
+  S.body.push(b); save(); ['b_w','b_fat','b_mus','b_water','b_bone','b_visc','b_bmr','b_note'].forEach(k=>$(k).value='');
+  alert('已保存'); renderBody();
+};
+
+/* ===== 分析 ===== */
+function renderAna(){
+  const all=S.records.filter(r=>r.cat!=='rest'); const wk=all.filter(r=>getWeek().includes(r.date));
+  let ana=`· 累计训练 ${all.length} 次，本周 ${wk.length} 次。<br>`;
+  const cc={}; all.forEach(r=>cc[r.cat]=(cc[r.cat]||0)+1);
+  ana+=`· 类别：${['bk','jp','fn','bd','rx'].map(c=>CAT[c].name+' '+(cc[c]||0)).join(' / ')}<br>`;
+  const ball=(cc.bk||0)+(cc.jp||0)+(cc.fn||0), bd=cc.bd||0;
+  if(all.length>=5){
+    if(ball<bd*0.8)ana+=`· ⚠ 篮球/功能偏少，建议增加脚步与弹跳。<br>`;
+    else if(bd<ball*0.5)ana+=`· ⚠ 力量偏少，围度/对抗不足。<br>`;
+    else ana+=`· ✅ 篮球与力量比例较均衡。<br>`;}
+  $('anaText').innerHTML=ana;
+  const r3=lastN(3).filter(r=>r.cat!=='rest'); const sets=r3.reduce((a,r)=>a+(+r.sets||0),0);
+  const rpe=r3.length?Math.round(r3.reduce((a,r)=>a+(+r.rpe||0),0)/r3.length):0;
+  let rest=`近3天：${sets}组，平均RPE ${rpe}，恢复评分 ${recoveryScore()}。<br>`;
+  if(recoveryScore()<45)rest+=`· 建议明天安排恢复日，睡眠8h，蛋白约${Math.round(S.profile.w*1.8)}g/天。`;
+  else if(recoveryScore()<70)rest+=`· 负荷适中，1个训练日后穿插轻恢复，注意补水睡眠。`;
+  else rest+=`· 恢复良好，可正常推进计划。`;
+  rest+=`<br>· 四五号位：关注膝踝腰背，落地缓冲+核心稳定不可省。`;
+  $('restText').innerHTML=rest;
+  const exs={}; all.forEach(r=>{if(r.weight>0)(exs[r.ex]=exs[r.ex]||[]).push(r);});
+  const best=[]; Object.keys(exs).forEach(e=>{const a=exs[e];if(a.length>=2){const ch=a[a.length-1].weight-a[0].weight;if(ch>0)best.push(`${e} ${a[0].weight}→${a[a.length-1].weight}kg(+${ch})`);}});
+  $('progText').innerHTML=best.length?best.slice(0,8).map(b=>`· ${b}`).join('<br>')+'<br><span class="mini">※ 基于记录的重量变化。</span>'
+    :'<span class="mini">同一动作记录两次以上(带重量)即显示趋势。</span>';
+  const bs=S.body.slice(-2);
+  if(bs.length>=2){const [a,b]=bs;const dw=(b.weight-a.weight).toFixed(1),df=((b.fat||0)-(a.fat||0)).toFixed(1),dm=((b.muscle||0)-(a.muscle||0)).toFixed(1);
+    $('bodyAna').innerHTML=`对比上次（${a.date}→${b.date}）：<br>· 体重 ${dw>=0?'+':''}${dw}kg<br>· 体脂率 ${df>=0?'+':''}${df}%<br>· 肌肉量 ${dm>=0?'+':''}${dm}kg<br>`+
+      `${dm>0&&df<0?'✅ 增肌减脂，体型向好。':dm<0&&df<0?'⚠ 体重与肌肉同降，注意蛋白摄入。':df>0&&dm<0?'⚠ 脂肪升肌肉降，调整饮食/有氧。':'继续记录观察。'}`+
+      `<br>当前 BMI ${bmi(b.weight)}。`;}
+  else $('bodyAna').innerHTML='<span class="mini">录入≥2次体脂秤数据后可对比。</span>';
+}
+
+/* ===== 数据 ===== */
+function renderData(){
+  $('cnt').textContent=S.records.length;
+  $('allTable').querySelector('tbody').innerHTML=S.records.slice().reverse().map(r=>`<tr>
+    <td>${r.date}</td><td>${catName(r.cat)}</td><td>${r.cat==='rest'?'—':r.ex}</td>
+    <td>${r.weight||'—'}</td><td>${r.sets||''}${r.sets?'×'+(r.reps||''):'—'}</td><td>${r.rpe||'—'}</td></tr>`).join('');
+}
+function renderExLib(){
+  $('exLib').innerHTML=Object.keys(EXLIB).map(c=>
+    `<div class="sec">${CAT[c].name}</div>`+EXLIB[c].map(e=>`<span class="tag" onclick="fillEx('${e}')">${e}</span>`).join('')).join('');
+}
+function fillEx(e){$('f_ex').value=e; const c=Object.keys(EXLIB).find(k=>EXLIB[k].includes(e)); if(c){$('f_cat').value=c;onCatChange();}}
+
+/* ===== 记录表单 ===== */
+function onCatChange(){
+  const isRest=$('f_cat').value==='rest';
+  $('trainFields').classList.toggle('hidden',isRest);
+  $('restFields').classList.toggle('hidden',!isRest);
+}
+$('f_cat').onchange=onCatChange;
+$('saveBtn').onclick=()=>{
+  const isRest=$('f_cat').value==='rest';
+  const rec={date:$('f_date').value||todayStr(),cat:$('f_cat').value,
+    ex:isRest?'休息':$('f_ex').value.trim(),weight:isRest?0:+$('f_w').value||0,
+    sets:isRest?0:+$('f_s').value||0,reps:isRest?0:+$('f_r').value||0,
+    dur:isRest?0:+$('f_dur').value||0,rpe:isRest?0:+$('f_rpe').value||7,
+    note:(isRest?$('f_resttype').value+' ':'')+$('f_note').value.trim()};
+  if(!isRest&&!rec.ex){alert('请填写动作名称');return;}
+  S.records.push(rec); save();
+  ['f_ex','f_w','f_s','f_r','f_dur','f_note'].forEach(k=>$(k).value='');
+  alert('已保存！计划与恢复建议已更新。'); renderHome();
+};
+$('f_rpe').oninput=()=>$('rpev').textContent=$('f_rpe').value;
+
+/* ===== 模式/目标/档案 ===== */
+document.querySelectorAll('#modeSwitch div').forEach(d=>d.onclick=()=>{
+  S.plan.mode=d.dataset.mode; save();
+  document.querySelectorAll('#modeSwitch div').forEach(x=>x.classList.toggle('on',x===d)); renderPlan();});
+$('saveGoal').onclick=()=>{S.profile.goal=$('g_goal').value; S.profile.days=+$('g_days').value||5; save(); alert('目标已保存'); renderPlan();};
+$('saveProfile').onclick=()=>{S.profile.h=+$('p_h').value||190; S.profile.w=+$('p_w').value||85; S.profile.pos=$('p_pos').value;
+  save(); $('topsub').textContent=`${S.profile.h}cm / ${S.profile.w}kg / 四五号位 · 篮球+健美平衡`; alert('档案已保存');};
+
+/* ===== 导入导出 ===== */
+$('exportBtn').onclick=()=>{
+  const rec=S.records.map(r=>[r.date,r.cat,r.ex,r.weight,r.sets,r.reps,r.dur,r.rpe,JSON.stringify(r.note||'')].join(',')).join('\n');
+  const body=S.body.map(b=>[b.date,'BODY',b.weight,b.fat,b.muscle,b.water,b.bone,b.visc,b.bmr,JSON.stringify(b.note||'')].join(',')).join('\n');
+  const blob=new Blob(['date,cat,ex,weight,sets,reps,dur,rpe,note\n'+rec+'\n'+body+'\n'],{type:'text/csv'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='fitness_data.csv'; a.click();
+};
+$('importBtn').onclick=()=>$('importFile').click();
+$('importFile').onchange=e=>{const f=e.target.files[0]; if(!f)return; const rd=new FileReader();
+  rd.onload=()=>{rd.result.split('\n').slice(1).filter(l=>l.trim()&&!l.includes(',BODY,')).forEach(l=>{const p=l.split(',');
+    S.records.push({date:p[0],cat:p[1],ex:p[2],weight:+p[3]||0,sets:+p[4]||0,reps:+p[5]||0,dur:+p[6]||0,rpe:+p[7]||7,note:p[8]||''});});
+    rd.result.split('\n').filter(l=>l.trim().includes(',BODY,')).forEach(l=>{const p=l.split(',');
+      S.body.push({date:p[0],weight:+p[2]||0,fat:+p[3]||0,muscle:+p[4]||0,water:+p[5]||0,bone:+p[6]||0,visc:+p[7]||0,bmr:+p[8]||0,note:p[9]||''});});
+    save(); alert('导入完成'); renderData();}; rd.readAsText(f);};
+$('resetBtn').onclick=()=>{if(confirm('确定清空全部数据？不可恢复！')){S.records=[];S.body=[];save();alert('已清空');renderData();}};
+
+/* ===== 初始化 ===== */
+load();
+$('f_date').value=todayStr();
+onCatChange();
+renderExLib();
+show('v_home');
+
+/* PWA */
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));}
+</script>
+</body>
+</html>
