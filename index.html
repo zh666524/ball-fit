@@ -193,6 +193,10 @@
     text-transform:uppercase;}
   .sec:first-child{margin-top:0;}
   .mini{font-size:11.5px; color:var(--sub); line-height:1.65;}
+  .why{margin:10px 0 0; padding:10px 12px; border-radius:12px; font-size:11.5px; line-height:1.75;
+    color:#bdcbdb; background:rgba(167,139,250,.075); border:1px solid rgba(167,139,250,.18);}
+  .why i{font-style:normal; color:#c9b2ff; font-weight:800; letter-spacing:.2px;}
+  .why div+div{margin-top:3px;}
   .seg{display:flex; gap:5px; padding:4px; margin-bottom:13px; border-radius:14px;
     background:rgba(255,255,255,.045); border:1px solid var(--line);}
   .seg div{flex:1; text-align:center; padding:9px 4px; border-radius:10px; cursor:pointer;
@@ -209,18 +213,32 @@
   /* ===== 日历 ===== */
   .cal{display:grid; grid-template-columns:repeat(7,1fr); gap:6px;}
   .cal .hd{text-align:center; font-size:11px; color:var(--sub); padding:2px 0 4px; font-weight:750; letter-spacing:.6px;}
-  .cal .cell{position:relative; min-height:50px; padding:5px 5px 4px; border-radius:12px; cursor:pointer;
-    background:rgba(255,255,255,.04); border:1px solid var(--line); transition:.15s;}
+  .cal .cell{position:relative; overflow:hidden; min-height:56px; padding:5px 5px 4px; border-radius:12px;
+    cursor:pointer; background:rgba(255,255,255,.04); border:1px solid var(--line);
+    transition:border-color .15s, transform .12s;}
   .cal .cell:hover{border-color:var(--line2);}
   .cal .cell:active{transform:scale(.94);}
-  .cal .cell.empty{background:transparent; border:none; cursor:default;}
+  .cal .cell.empty{background:transparent; border:none; cursor:default; overflow:visible;}
   .cal .cell.today{border-color:rgba(255,122,61,.6);
     background:linear-gradient(160deg,rgba(255,122,61,.22),rgba(255,84,112,.08));}
   .cal .cell.today .dn{color:#ffc39a; font-weight:800;}
-  .cal .cell .dn{font-size:12px; color:var(--txt); font-weight:650; font-variant-numeric:tabular-nums;}
+  .cal .cell>*{position:relative; z-index:1;}
+  /* 睡眠：从底部升起的水位，高度=时长，颜色=质量 */
+  .cal .cell::before{content:""; position:absolute; left:0; right:0; bottom:0; height:0; z-index:0;
+    border-radius:0 0 11px 11px; pointer-events:none; transition:height .32s cubic-bezier(.3,.9,.3,1);
+    background:linear-gradient(180deg,rgba(167,139,250,.07),rgba(167,139,250,.40));}
+  .cal .cell.sleep::before{height:var(--pf,50%);}
+  .cal .cell.sleep.low::before{background:linear-gradient(180deg,rgba(255,92,108,.08),rgba(255,92,108,.46));}
+  .cal .cell .dn{font-size:12px; color:var(--txt); font-weight:650; font-variant-numeric:tabular-nums;
+    text-shadow:0 1px 3px rgba(0,0,0,.55);}
   .cal .cell .dots{display:flex; flex-wrap:wrap; gap:2px; margin-top:4px;}
-  .cal .cell .dt{width:6px; height:6px; border-radius:50%;}
-  .cal .cell .badge{position:absolute; right:4px; bottom:3px; font-size:9.5px; color:var(--sub); font-weight:700;}
+  .cal .cell .dt{width:6px; height:6px; border-radius:50%; box-shadow:0 1px 2px rgba(0,0,0,.5);}
+  .cal .cell .badge{position:absolute; right:4px; bottom:3px; font-size:9.5px; color:#c2cfdd; font-weight:700;
+    text-shadow:0 1px 3px rgba(0,0,0,.75);}
+  .cal .cell .slt{position:absolute; right:4px; top:3px; font-size:9px; font-weight:800; letter-spacing:-.3px;
+    color:#c9b2ff; font-variant-numeric:tabular-nums; text-shadow:0 1px 3px rgba(0,0,0,.6);}
+  .cal .cell.sleep.low .slt{color:#ff9aa4;}
+  .cal .cell.today .slt{text-shadow:0 1px 4px rgba(0,0,0,.45);}
   .calnav{display:flex; align-items:center; justify-content:space-between; margin-bottom:11px;}
   .calnav b{font-size:15.5px; font-weight:800; letter-spacing:.4px;}
   .calnav span{cursor:pointer; font-size:20px; padding:0 14px; color:var(--accent); user-select:none;
@@ -308,7 +326,7 @@
       <div class="stat"><div class="v" id="d_week">0</div><div class="l">本周训练次数</div></div>
       <div class="stat"><div class="v" id="d_vol">0</div><div class="l">本周训练量(组)</div></div>
       <div class="stat"><div class="v" id="d_streak">0</div><div class="l">连续训练天数</div></div>
-      <div class="stat"><div class="v" id="d_recover">—</div><div class="l">恢复评分</div></div>
+      <div class="stat"><div class="v" id="d_recover">—</div><div class="l" id="dRecoverL">恢复评分</div></div>
     </div>
     <div class="card">
       <h2><span class="ci">📈</span>训练类别分布(近30天)</h2>
@@ -340,6 +358,8 @@
       <h2><span class="ci">➕</span>新增记录</h2>
       <label>日期</label>
       <input id="f_date" type="date">
+      <label>昨晚睡眠(小时)</label>
+      <input id="f_sleep" inputmode="decimal" max="16" min="0" placeholder="如 7.5（每天记一次，计入恢复评分）" step="0.5" type="number">
       <label>类型</label>
       <select id="f_cat">
         <option value="bd">健美力量</option>
@@ -359,7 +379,7 @@
         </div>
         <div class="grid g2">
           <div><label>时长(分钟)</label><input id="f_dur" placeholder="可选" type="number"></div>
-          <div><label>主观强度 RPE</label><input id="f_rpe" max="10" min="1" type="range" value="7"><span class="mini" id="rpev">7</span></div>
+          <div><label>主观强度 RPE <b id="rpev" style="color:#ffb184;font-size:13px">7</b></label><input id="f_rpe" max="10" min="1" type="range" value="7"></div>
         </div>
       </div>
       <div class="hidden" id="restFields">
@@ -384,31 +404,34 @@
   <!-- 计划 -->
   <section class="hidden" id="v_plan">
     <div class="card">
-      <h2><span class="ci">🗓</span>本周训练安排</h2>
-      <div class="seg" id="modeSwitch">
-        <div class="on" data-mode="plan">按计划训练</div>
-        <div data-mode="free">自由训练</div>
-      </div>
-      <div class="mini" id="restTip" style="margin-bottom:8px"></div>
-      <div id="weekPlan"></div>
-    </div>
-    <div class="card">
-      <h2><span class="ci">💡</span>下次训练推荐</h2>
-      <div id="recoBox"></div>
-      <div class="mini" style="margin-top:8px">有历史的力量动作自动推算推荐重量(渐进超负荷；上次RPE≥9保重/减负)；无历史仅给动作+默认组数。</div>
-    </div>
-    <div class="card">
       <h2><span class="ci">🎯</span>训练目标</h2>
+      <div class="mini" id="goalHint" style="margin:-6px 0 10px"></div>
       <label>主要目标</label>
       <select id="g_goal">
-        <option value="balance">篮球+健美平衡(默认)</option>
+        <option value="balance">篮球+健美平衡</option>
         <option value="jump">主攻弹跳/爆发</option>
         <option value="mass">主攻增肌围度</option>
         <option value="skill">主攻篮球技术</option>
       </select>
       <label>每周可训练天数</label>
       <input id="g_days" max="7" min="3" type="number" value="5">
-      <button class="sub" id="saveGoal" style="margin-top:12px">保存目标</button>
+      <button id="saveGoal" style="margin-top:12px">保存目标</button>
+      <div class="mini" style="margin-top:8px">选什么目标，下面就排什么计划——训练内容、恢复日数量、推荐动作都会跟着变。</div>
+    </div>
+    <div class="card">
+      <h2><span class="ci">🗓</span>本周训练安排</h2>
+      <div class="seg" id="modeSwitch">
+        <div class="on" data-mode="plan">按计划训练</div>
+        <div data-mode="free">自由训练</div>
+      </div>
+      <div class="mini" id="restTip" style="margin-bottom:4px"></div>
+      <div class="why" id="planNotes"></div>
+      <div id="weekPlan"></div>
+    </div>
+    <div class="card">
+      <h2><span class="ci">💡</span>下次训练推荐</h2>
+      <div id="recoBox"></div>
+      <div class="mini" style="margin-top:8px">有历史的力量动作自动推算推荐重量(渐进超负荷；上次RPE≥9保重/减负)；无历史仅给动作+默认组数。</div>
     </div>
   </section>
 
@@ -423,6 +446,10 @@
         <span><i style="background:#36d399"></i>功能性</span><span><i style="background:#ff7a3d"></i>健美</span>
         <span><i style="background:#ffd166"></i>有氧</span><span><i style="background:#8b98a8"></i>休息</span>
         <span style="margin-left:auto">角标=当日组数</span>
+        <span style="flex-basis:100%; margin-top:2px">
+          <i style="background:linear-gradient(180deg,rgba(167,139,250,.15),rgba(167,139,250,.75))"></i>格内水位=睡眠时长，右上角数字为小时数
+          <i style="background:rgba(255,92,108,.7); margin-left:8px"></i>红色=不足 6h
+        </span>
       </div>
     </div>
     <div class="card">
@@ -551,12 +578,13 @@ const MUSCLE={'深蹲':['腿'],'硬拉':['腿','背'],'卧推':['胸'],'上斜�
   '平板支撑':['核心'],'侧桥':['核心'],'农夫行走':['核心'],'核心抗旋':['核心'],
   '单腿硬拉':['腿','核心'],'药球抛接':['核心'],'TRX划船':['背']};
 let S={profile:{h:0,w:0,pos:'',goal:'balance',days:5},
-       records:[], body:[], plan:{mode:'plan'},
+       records:[], body:[], sleep:{}, plan:{mode:'plan'},
        cal:{y:new Date().getFullYear(), m:new Date().getMonth(), sel:null},
        myTab:'body'};
 
 function load(){try{const r=localStorage.getItem(KEY); if(r){S=JSON.parse(r);
-  S.cal=S.cal||{y:new Date().getFullYear(),m:new Date().getMonth(),sel:null}; S.myTab=S.myTab||'body';}}catch(e){}}
+  S.cal=S.cal||{y:new Date().getFullYear(),m:new Date().getMonth(),sel:null}; S.myTab=S.myTab||'body';
+  S.sleep=S.sleep||{}; S.profile=S.profile||{h:0,w:0,pos:'',goal:'balance',days:5};}}catch(e){}}
 function save(){localStorage.setItem(KEY,JSON.stringify(S));}
 
 /* ===== 工具 ===== */
@@ -576,26 +604,114 @@ function getWeek(){const d=new Date(); const day=(d.getDay()+6)%7; const mon=new
 function lastN(n){const start=new Date(); start.setDate(start.getDate()-n); const s=dateStr(start);
   return S.records.filter(r=>r.date>=s);}
 
-/* ===== 周期模板 ===== */
-const WEEK=[
-  {d:'周一',title:'下肢力量 + 弹跳基础',cat:'bd',items:['深蹲 4×6','腿举 3×10','罗马尼亚硬拉 3×8','箱跳(45cm) 4×5']},
-  {d:'周二',title:'篮球脚步 + 功能性核心',cat:'bk',items:['防守滑步 3×40s','变向突破 4×','低位脚步 3×','平板支撑 3×60s']},
-  {d:'周三',title:'上肢推(胸/肩)',cat:'bd',items:['卧推 4×8','上斜卧推 3×10','肩推 3×12','双杠臂屈伸 3×10']},
-  {d:'周四',title:'恢复日',cat:'rest',items:['完全休息或主动恢复','拉伸/泡沫轴 15min','睡眠 8h']},
-  {d:'周五',title:'弹跳强化 + 敏捷',cat:'jp',items:['跳深 4×4','连续纵跳 4×8','敏捷梯 4×','单腿跳 3×']},
-  {d:'周六',title:'上肢拉(背/臂) + 核心',cat:'bd',items:['引体向上 4×','杠铃划船 4×10','弯举 3×12','侧桥 3×']},
-  {d:'周日',title:'篮球对抗/比赛 + 恢复',cat:'bk',items:['半场对抗 40min','核心抗旋 3×','拉伸放松']}
-];
+/* ===== 睡眠 ===== */
+// 取某天睡眠小时数：优先 S.sleep，其次找当天带 sleep 的记录
+function getSleep(ds){
+  if(S.sleep&&+S.sleep[ds]>0) return +S.sleep[ds];
+  const hit=S.records.filter(x=>x.date===ds&&+x.sleep>0);
+  return hit.length?+hit[hit.length-1].sleep:0;
+}
+// 近 n 天平均睡眠（只统计有记录的）
+function sleepAvg(n){
+  const list=[];
+  for(let i=0;i<n;i++){const d=new Date(); d.setDate(d.getDate()-i); const v=getSleep(dateStr(d)); if(v>0) list.push(v);}
+  return list.length?list.reduce((a,b)=>a+b,0)/list.length:0;
+}
+// 睡眠记录覆盖天数
+function sleepCount(){
+  const s=new Set(Object.keys(S.sleep||{}));
+  S.records.forEach(r=>{if(+r.sleep>0)s.add(r.date);});
+  return s.size;
+}
+function setSleep(ds,h){
+  if(!(h>0)) return;
+  S.sleep=S.sleep||{}; S.sleep[ds]=h;
+}
 
-/* ===== 恢复评分 ===== */
-function recoveryScore(){
+/* ===== 目标模板：不同目标 = 不同编排 ===== */
+const GOAL_PLAN={
+  balance:{
+    name:'篮球+健美平衡', focus:'力量与球场表现并重，两者不偏废',
+    week:[
+      {d:'周一',title:'下肢力量 + 弹跳基础',cat:'bd',items:['深蹲 4×6','腿举 3×10','罗马尼亚硬拉 3×8','箱跳(45cm) 4×5']},
+      {d:'周二',title:'篮球脚步 + 功能性核心',cat:'bk',items:['防守滑步 3×40s','变向突破 4×','低位脚步 3×','平板支撑 3×60s']},
+      {d:'周三',title:'上肢推(胸/肩)',cat:'bd',items:['卧推 4×8','上斜卧推 3×10','肩推 3×12','双杠臂屈伸 3×10']},
+      {d:'周四',title:'恢复日',cat:'rest',items:['完全休息或主动恢复','拉伸/泡沫轴 15min','睡眠 8h']},
+      {d:'周五',title:'弹跳强化 + 敏捷',cat:'jp',items:['跳深 4×4','连续纵跳 4×8','敏捷梯 4×','单腿跳 3×']},
+      {d:'周六',title:'上肢拉(背/臂) + 核心',cat:'bd',items:['引体向上 4×','杠铃划船 4×10','弯举 3×12','侧桥 3×']},
+      {d:'周日',title:'篮球对抗/比赛 + 恢复',cat:'bk',items:['半场对抗 40min','核心抗旋 3×','拉伸放松']}
+    ]
+  },
+  jump:{
+    name:'主攻弹跳/爆发', focus:'下肢爆发优先，力量做底子，技术维持不掉',
+    week:[
+      {d:'周一',title:'弹跳质量日(神经，状态最好时做)',cat:'jp',items:['跳深 4×4','箱跳(60cm) 5×3','助跑摸高 5×','单腿跳 3×5']},
+      {d:'周二',title:'下肢力量(低次数高负荷)',cat:'bd',items:['深蹲 5×5','罗马尼亚硬拉 4×6','腿举 3×8','提踵 4×12']},
+      {d:'周三',title:'恢复日',cat:'rest',items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 8-9h']},
+      {d:'周四',title:'弹跳量日 + 核心传递',cat:'jp',items:['连续纵跳 5×8','蛙跳 4×6','负重半蹲跳 4×5','药球抛接 3×']},
+      {d:'周五',title:'篮球脚步维持',cat:'bk',items:['防守滑步 3×40s','变向突破 3×','助跑摸高 3×','拉伸放松']},
+      {d:'周六',title:'上肢+核心(辅助，别抢恢复)',cat:'fn',items:['引体向上 3×','肩推 3×10','平板支撑 3×60s','侧桥 3×']},
+      {d:'周日',title:'恢复日',cat:'rest',items:['完全休息','下肢放松(泡沫轴)','睡眠 8h']}
+    ]
+  },
+  mass:{
+    name:'主攻增肌围度', focus:'容量优先，四天分化推拉腿，篮球只维持',
+    week:[
+      {d:'周一',title:'胸 + 三头',cat:'bd',items:['卧推 4×8','上斜卧推 4×10','双杠臂屈伸 3×12','绳索下压 3×12']},
+      {d:'周二',title:'背 + 二头',cat:'bd',items:['引体向上 4×','杠铃划船 4×10','高位下拉 3×12','弯举 3×12']},
+      {d:'周三',title:'恢复日',cat:'rest',items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 8h']},
+      {d:'周四',title:'腿(股四主导)',cat:'bd',items:['深蹲 4×8','腿举 4×12','腿屈伸 3×15','提踵 4×15']},
+      {d:'周五',title:'肩 + 核心',cat:'bd',items:['肩推 4×10','侧平举 4×15','面拉 3×15','平板支撑 3×60s']},
+      {d:'周六',title:'篮球轻量维持 + 有氧',cat:'bk',items:['三分投射 4×','运球组合 3×','慢跑 20min','拉伸放松']},
+      {d:'周日',title:'恢复日',cat:'rest',items:['完全休息','睡眠 8h','补水补碳']}
+    ]
+  },
+  skill:{
+    name:'主攻篮球技术', focus:'技术脚步为主，力量只维持不掉',
+    week:[
+      {d:'周一',title:'投篮技术(定点+移动)',cat:'bk',items:['三分投射 5×20','中距离跳投 4×10','罚球 3×20','运球组合 3×']},
+      {d:'周二',title:'下肢力量维持',cat:'bd',items:['深蹲 4×6','罗马尼亚硬拉 3×8','臀桥 3×12','提踵 3×15']},
+      {d:'周三',title:'恢复日',cat:'rest',items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 8h']},
+      {d:'周四',title:'脚步与防守',cat:'bk',items:['防守滑步 4×40s','挡拆脚步 4×','低位脚步 3×','敏捷梯 3×']},
+      {d:'周五',title:'控运 + 对抗终结',cat:'bk',items:['变向突破 5×','挡拆阅读 3×','半场对抗 30min','核心抗旋 3×']},
+      {d:'周六',title:'弹跳/敏捷维持',cat:'jp',items:['箱跳(45cm) 4×5','连续纵跳 3×8','敏捷梯 3×','单腿跳 3×']},
+      {d:'周日',title:'比赛/对抗 + 恢复',cat:'bk',items:['全场对抗 40min','拉伸放松','睡眠 8h']}
+    ]
+  }
+};
+// 补强用的替换块：某目标的关键训练近两周没做时插入
+const FILL={
+  jp:{title:'弹跳补强(近两周偏少)',cat:'jp',items:['箱跳(45cm) 4×5','连续纵跳 3×8','单腿跳 3×','落地缓冲练习 3×']},
+  bk:{title:'篮球专项补强(近两周偏少)',cat:'bk',items:['三分投射 5×20','变向突破 4×','防守滑步 3×40s','罚球 3×20']},
+  bd:{title:'力量补强(近两周偏少)',cat:'bd',items:['深蹲 4×6','卧推 4×8','杠铃划船 4×10','核心抗旋 3×']},
+  fn:{title:'功能性补强',cat:'fn',items:['平板支撑 3×60s','农夫行走 3×','药球抛接 3×','侧桥 3×']}
+};
+
+/* ===== 恢复评分（含睡眠） ===== */
+function recoveryDetail(){
   const r3=lastN(3).filter(r=>r.cat!=='rest');
   const sets=r3.reduce((a,r)=>a+(+r.sets||0),0);
   const avgRpe=r3.length?r3.reduce((a,r)=>a+(+r.rpe||0),0)/r3.length:5;
-  let sc=100 - sets*2.0 - Math.max(0,avgRpe-5)*6;
   const rest2=S.records.filter(r=>r.cat==='rest' && daysBetween(r.date,todayStr())<=2).length;
-  sc+=rest2*10;
-  return Math.max(5,Math.min(100,Math.round(sc)));
+  const sl=sleepAvg(4);
+  let sc=100 - sets*2.0 - Math.max(0,avgRpe-5)*6 + rest2*10;
+  // 睡眠修正：训练量再大，睡够了也能修回来；睡不够，练得少也恢复不了
+  let sleepAdj=0;
+  if(sl>0){
+    if(sl>=8) sleepAdj=8;
+    else if(sl>=7) sleepAdj=4;
+    else if(sl>=6) sleepAdj=-4;
+    else sleepAdj=-10;
+  }
+  sc+=sleepAdj;
+  return {score:Math.max(5,Math.min(100,Math.round(sc))),sets,setsPenalty:sets*2,
+    avgRpe:Math.round(avgRpe*10)/10,restDays:rest2,sleep:Math.round(sl*10)/10,sleepAdj,
+    hasSleep:sl>0};
+}
+function recoveryScore(){return recoveryDetail().score;}
+function sleepLabel(){
+  const sl=sleepAvg(3);
+  return sl>0?`${Math.round(sl*10)/10}h`:'—';
 }
 function consecutiveTrainDays(){
   let c=0; let cur=new Date();
@@ -609,27 +725,77 @@ function consecutiveTrainDays(){
   return c;
 }
 
-/* ===== 动态排休息日 ===== */
+/* ===== 动态周计划：目标模板 + 近期记录 + 恢复与睡眠 ===== */
+function catCount(cat,win){
+  return S.records.filter(r=>{const d=daysBetween(r.date,todayStr()); return r.cat===cat && d>=0 && d<=win;}).length;
+}
 function buildWeekPlan(){
-  const rec=recoveryScore();
-  if(S.records.length===0){
-    // 首次使用:只保留固定周四恢复日,让用户先动起来
-    return WEEK.map((w,i)=> i===3
-      ? {...w,isRest:true,cat:'rest',title:'恢复日',items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 7-9h']}
-      : {...w,isRest:false});
-  }
-  let restCount=Math.max(1, 7-(S.profile.days||5));
-  if(rec<45) restCount++;
-  if(consecutiveTrainDays()>=5) restCount++;
-  restCount=Math.min(4,restCount);
-  const restIdx=[3,6,1,4].slice(0,restCount);
+  const gk=(S.profile.goal&&GOAL_PLAN[S.profile.goal])?S.profile.goal:'balance';
+  const tpl=GOAL_PLAN[gk];
+  const notes=[];
+  const days=tpl.week.map((w,i)=>({...w,items:w.items.slice(),idx:i,isRest:w.cat==='rest'}));
   const dow=(new Date().getDay()+6)%7;
-  if(rec<35 && !restIdx.includes(dow)) restIdx.push(dow);
-  return WEEK.map((w,i)=>{
-    if(i===3) return {...w, isRest:true, cat:'rest', title:'恢复日', items:['完全休息 / 主动恢复','拉伸泡沫轴 15min','睡眠 7-9h']};
-    if(restIdx.includes(i)) return {...w, isRest:true, cat:'rest', title:'恢复日(动态安排)', items:['低强度活动','拉伸/泡沫轴','补水+睡眠']};
-    return {...w, isRest:false};
-  });
+
+  const firstRun = S.records.length===0 && sleepCount()===0;
+  const rd=recoveryDetail(), streak=consecutiveTrainDays();
+  if(firstRun) notes.push(['起步','已按「'+tpl.name+'」排好本周：'+tpl.focus+'。先记 3 天，计划会按你的实际负荷和睡眠自动微调。']);
+
+  /* 1) 恢复日数量：基础缺口 + 恢复状态修正 */
+  const tplRest=days.filter(w=>w.isRest).length;
+  let need=Math.max(tplRest, 7-(S.profile.days||5));
+  const why=[];
+  if(rd.score<45){need++; why.push('恢复评分 '+rd.score+' 偏低');}
+  if(streak>=5){need++; why.push('已连续训练 '+streak+' 天');}
+  if(rd.hasSleep&&rd.sleep<6.5){need++; why.push('近 4 天平均只睡 '+rd.sleep+'h');}
+  need=Math.min(4,Math.max(1,need));
+  const cand=[6,5,2,0,4,3,1].filter(i=>!days[i].isRest);
+  let added=0;
+  while(days.filter(d=>d.isRest).length<need && cand.length){
+    const i=cand.shift();
+    days[i]={d:days[i].d,idx:i,cat:'rest',isRest:true,
+      title:'恢复日(动态安排)',items:['低强度活动 / 完全休息','拉伸泡沫轴 15min','睡眠 8h']};
+    added++;
+  }
+  if(added) notes.push(['恢复日','本周排 '+need+' 个恢复日'+
+    (why.length?'：'+why.join('、'):'：按你设的每周 '+(S.profile.days||5)+' 练')+'。']);
+
+  if(firstRun) return {days,notes,goalName:tpl.name,focus:tpl.focus,goalKey:gk};
+
+  /* 2) 恢复极低：今天直接换恢复 */
+  if(rd.score<35 && !days[dow].isRest){
+    days[dow]={d:days[dow].d,idx:dow,cat:'rest',isRest:true,
+      title:'恢复日(今天强制)',items:['完全休息','拉伸/泡沫轴 15min','补水 · 睡眠 8h 以上']};
+    notes.push(['今天','恢复评分只有 '+rd.score+'，今天改成恢复。硬练只会把疲劳叠到下一周。']);
+  }
+
+  /* 3) 目标一致性：主项不能缺 */
+  const KEY={jump:'jp',skill:'bk',mass:'bd',balance:null}[gk];
+  const KTX={jp:'弹跳',bk:'篮球',bd:'力量'};
+  if(KEY){
+    const inPlan=days.filter(d=>!d.isRest&&d.cat===KEY).length;
+    const recent=catCount(KEY,10);
+    if(recent===0 && inPlan>0)
+      notes.push(['缺口','近 10 天没有「'+KTX[KEY]+'」记录。本周还排了 '+inPlan+' 天，别再跳过——这是「'+tpl.name+'」的主项。']);
+    else if(recent>0 && inPlan===0){
+      const i=days.findIndex(d=>!d.isRest);
+      if(i>=0){days[i]={...FILL[KEY],d:days[i].d,idx:i,isRest:false};
+        notes.push(['补强','「'+KTX[KEY]+'」是主项但本周没排，已补到'+days[i].d+'。']);}
+    }
+  }
+  if(gk==='balance'){
+    const ball=catCount('bk',14)+catCount('jp',14)+catCount('fn',14), bd=catCount('bd',14);
+    if(bd>=3 && ball<=bd*0.5) notes.push(['偏科','近两周力量 '+bd+' 次、球场类只有 '+ball+' 次。目标写着平衡，球场那半天别丢。']);
+    else if(ball>=4 && bd<=1) notes.push(['偏科','近两周球场类 '+ball+' 次、力量只有 '+bd+' 次。围度和对抗会往下掉。']);
+  }
+
+  /* 4) 昨天练过同一类，今天别原样再来 */
+  const y=dateStr(new Date(Date.now()-86400000));
+  const yRecs=S.records.filter(r=>r.date===y&&r.cat!=='rest');
+  if(yRecs.length && !days[dow].isRest && yRecs.some(r=>r.cat===days[dow].cat))
+    notes.push(['连着练','昨天刚练过「'+catName(days[dow].cat)+'」。今天同类建议减量 20%，或换成功能性/恢复。']);
+
+  if(!notes.length) notes.push(['稳定','计划与「'+tpl.name+'」一致，近两周没有明显偏科，按表执行就好。']);
+  return {days,notes,goalName:tpl.name,focus:tpl.focus,goalKey:gk};
 }
 
 /* ===== 视图切换 ===== */
@@ -638,6 +804,7 @@ function show(v){
   ['v_home','v_log','v_plan','v_cal','v_my'].forEach(s=>$(s).classList.toggle('hidden',s!==v));
   if(v==='v_home')renderHome(); if(v==='v_plan')renderPlan(); if(v==='v_cal')renderCal();
   if(v==='v_my')renderMy();
+  if(v==='v_log')$('f_sleep').value=getSleep($('f_date').value||todayStr())||'';
 }
 document.querySelectorAll('.tabs div').forEach(t=>t.onclick=()=>show(t.dataset.v));
 
@@ -647,7 +814,12 @@ function renderHome(){
   $('d_week').textContent=wr.length;
   $('d_vol').textContent=wr.reduce((a,r)=>a+(+r.sets||0),0);
   $('d_streak').textContent=consecutiveTrainDays();
-  $('d_recover').textContent=(S.records.length?recoveryScore():'—')+(S.records.length?'分':'');
+  const rd=recoveryDetail();
+  const hasAny=S.records.length>0||sleepCount()>0;
+  const rv=$('d_recover');
+  rv.textContent=hasAny?rd.score+'分':'—';
+  rv.style.color=!hasAny?'':(rd.score<45?'#ff8b96':rd.score<70?'#ffd166':'#63e2b4');
+  $('dRecoverL').textContent=rd.hasSleep?'恢复评分 · 睡 '+rd.sleep+'h':'恢复评分';
   const cat30={}; lastN(30).forEach(r=>cat30[r.cat]=(cat30[r.cat]||0)+(+r.sets||0||1));
   const maxc=Math.max(1,...Object.values(cat30));
   $('catBars').innerHTML=Object.keys(CAT).map(c=>{
@@ -671,12 +843,14 @@ function renderHome(){
   const recs=S.records.slice(-6).reverse();
   $('recent').innerHTML=recs.length?recs.map(r=>{
     const c=CAT[r.cat]||CAT.bd;
-    const body=r.cat==='rest'?`<div class="ex">${r.note||'休息恢复'}</div>`
-      :`<div class="ex">${r.ex} · ${r.weight?r.weight+'kg ':''}${r.sets||''}组×${r.reps||''}次 · RPE${r.rpe}</div>`;
+    const sl=getSleep(r.date);
+    const slTxt=sl?` <span class="pill" style="background:rgba(167,139,250,.15);color:#c9b2ff">🌙 ${sl}h</span>`:'';
+    const body=r.cat==='rest'?`<div class="ex">${r.note||'休息恢复'}${slTxt}</div>`
+      :`<div class="ex">${r.ex} · ${r.weight?r.weight+'kg ':''}${r.sets||''}组×${r.reps||''}次 · RPE${r.rpe}${slTxt}</div>`;
     return `<div class="item"><b>${r.date}</b> <span class="pill ${r.cat}">${c.name}</span>${body}</div>`;}).join('')
     :'<div class="mini">还没有记录，去「记录」页添加第一条吧。</div>';
   $('nextBox').innerHTML='<b>👉 今日建议：</b>'+nextReco().headline;
-  $('welcome').classList.toggle('hidden',S.records.length>0);
+  $('welcome').classList.toggle('hidden',hasAny);
 }
 function bmi(w){if(!w||!S.profile.h)return '—';return (w/Math.pow(S.profile.h/100,2)).toFixed(1);}
 
@@ -701,47 +875,80 @@ function parseItem(it){
 function muscleLoad(win){const recs=lastN(win).filter(r=>r.cat!=='rest'); const m={};
   recs.forEach(r=>{const ms=MUSCLE[r.ex]||['其他']; const load=(+r.sets||0)*(+r.reps||0||1); ms.forEach(x=>m[x]=(m[x]||0)+load);}); return m;}
 function nextReco(){
-  const wp=buildWeekPlan(); const dow=(new Date().getDay()+6)%7; const t=wp[dow];
+  const wp=buildWeekPlan(), dow=(new Date().getDay()+6)%7, t=wp.days[dow];
+  const rd=recoveryDetail(), gk=wp.goalKey;
+
   if(S.plan.mode==='plan'){
-    if(t.isRest) return {headline:`今天是恢复日，建议休息/主动拉伸，睡眠 8h。`,plan:{...t,items:['完全休息或主动恢复','拉伸泡沫轴 15min','睡眠 8h']}};
-    return {headline:`今天(${t.d})安排「${t.title}」`,plan:t};
+    if(t.isRest){
+      const sl=rd.hasSleep?`，近 4 天平均 ${rd.sleep}h，今晚往 8h 补`:'';
+      return {headline:`今天是恢复日，建议休息/主动拉伸${sl}。`,plan:{...t,items:t.items}};
+    }
+    const sl=rd.hasSleep&&rd.sleep<6.5?` — 近几天只睡 ${rd.sleep}h，今天强度往下压一档`:'';
+    return {headline:`今天(${t.d})安排「${t.title}」${sl}`,plan:t};
   }
-  const lastJump=S.records.filter(r=>r.cat==='jp').slice(-1)[0];
-  const dj=lastJump?daysBetween(lastJump.date,todayStr()):99;
-  const lastBk=S.records.filter(r=>r.cat==='bk').slice(-1)[0];
-  const db=lastBk?daysBetween(lastBk.date,todayStr()):99;
-  const y=dateStr(new Date(new Date().setDate(new Date().getDate()-1)));
+
+  /* 自由模式：按目标决定优先补哪块 */
+  const lastOf=c=>{const a=S.records.filter(r=>r.cat===c).slice(-1)[0]; return a?daysBetween(a.date,todayStr()):99;};
+  const dj=lastOf('jp'), db=lastOf('bk'), dd=lastOf('bd');
+  const y=dateStr(new Date(Date.now()-86400000));
   const yMusc=new Set(); S.records.filter(r=>r.date===y).forEach(r=>(MUSCLE[r.ex]||[]).forEach(x=>yMusc.add(x)));
-  const rec=recoveryScore();
-  let sug;
-  if(rec<40) sug={title:'恢复日(恢复评分偏低)',cat:'rest',items:['完全休息或主动恢复','拉伸泡沫轴 15min','睡眠 8h']};
-  else if(dj>=5) sug={title:'弹跳/爆发训练',cat:'jp',items:['跳深 4×4','连续纵跳 4×8','箱跳(60cm) 4×5','单腿跳 3×']};
-  else if(db>=4) sug={title:'篮球专项训练',cat:'bk',items:['三分投射 5×20','变向突破 4×','防守滑步 3×40s','低位脚步 3×']};
-  else if([...yMusc].some(x=>['腿','背','胸'].includes(x))) sug={title:'功能性 + 有氧恢复',cat:'fn',items:['平板支撑 3×60s','核心抗旋 3×','慢跑 20min','拉伸放松']};
-  else sug={title:'健美力量(下肢为主)',cat:'bd',items:['深蹲 4×6','腿举 3×10','罗马尼亚硬拉 3×8','臀桥 3×12']};
-  return {headline:`推荐「${sug.title}」`,plan:sug};
+  const tired=[...yMusc].some(x=>['腿','背','胸'].includes(x));
+  const rec=rd.score;
+
+  if(rec<40) return {headline:`恢复评分 ${rec}，今天建议恢复——睡觉比多练一次更值。`,
+    plan:{title:'恢复日(恢复评分偏低)',cat:'rest',items:['完全休息或主动恢复','拉伸泡沫轴 15min','睡眠 8h']}};
+
+  const BLK={
+    jp:{title:'弹跳/爆发',cat:'jp',items:['跳深 4×4','连续纵跳 4×8','箱跳(60cm) 4×5','单腿跳 3×']},
+    bk:{title:'篮球专项',cat:'bk',items:['三分投射 5×20','变向突破 4×','防守滑步 3×40s','低位脚步 3×']},
+    bd:{title:'健美力量',cat:'bd',items:['深蹲 4×6','腿举 3×10','罗马尼亚硬拉 3×8','臀桥 3×12']},
+    fn:{title:'功能性 + 有氧恢复',cat:'fn',items:['平板支撑 3×60s','核心抗旋 3×','慢跑 20min','拉伸放松']}
+  };
+  const order={balance:['jp','bk','bd','fn'],jump:['jp','bd','bk','fn'],
+               mass:['bd','fn','bk','jp'],skill:['bk','jp','bd','fn']}[gk]||['jp','bk','bd','fn'];
+  const gapJp=gk==='jump'?3:5, gapBk=gk==='skill'?3:4;
+  let pick='fn', why='';
+  for(const c of order){
+    if(c==='jp'&&dj>=gapJp){pick='jp'; why=dj>90?'近期没有弹跳记录':`距上次弹跳 ${dj} 天`; break;}
+    if(c==='bk'&&db>=gapBk){pick='bk'; why=db>90?'近期没有篮球记录':`距上次篮球 ${db} 天`; break;}
+    if(c==='bd'&&dd>=3&&!tired){pick='bd'; why=dd>90?'近期没有力量记录':`距上次力量 ${dd} 天`; break;}
+    if(c==='fn'){pick='fn'; why=tired?'昨天练过下肢/核心，今天换功能性':'轮到功能性'; break;}
+  }
+  const sug=BLK[pick];
+  const sl=rd.hasSleep&&rd.sleep<6.5?` · 睡眠只有 ${rd.sleep}h，量减两成`:'';
+  return {headline:`推荐「${sug.title}」· ${why}${sl}`,plan:sug};
 }
 
 /* ===== 计划页 ===== */
 function renderPlan(){
-  const wp=buildWeekPlan(); const wk=getWeek(); const dow=(new Date().getDay()+6)%7;
-  const restN=wp.filter(w=>w.isRest).length;
-  $('restTip').innerHTML=`恢复评分 <b>${recoveryScore()}</b> · 连续训练 <b>${consecutiveTrainDays()}</b> 天 · 本周安排 <b>${restN}</b> 个恢复日（按恢复情况动态调整）`;
-  $('weekPlan').innerHTML=wp.map((w,i)=>{
+  const wp=buildWeekPlan(), wk=getWeek(), dow=(new Date().getDay()+6)%7;
+  const rd=recoveryDetail();
+  const restN=wp.days.filter(w=>w.isRest).length;
+  $('goalHint').innerHTML=`当前目标：<b>${wp.goalName}</b> · ${wp.focus}`;
+  const hasAny=S.records.length>0||sleepCount()>0;
+  $('restTip').innerHTML=`恢复评分 <b>${hasAny?rd.score:'—'}</b>${rd.hasSleep?`（近 4 天睡眠 ${rd.sleep}h）`:''} · 连续训练 <b>${consecutiveTrainDays()}</b> 天 · 本周 <b>${restN}</b> 个恢复日`;
+  $('planNotes').innerHTML=wp.notes.map(n=>`<div><i>${n[0]}</i> · ${n[1]}</div>`).join('');
+  $('weekPlan').innerHTML=wp.days.map((w,i)=>{
     const done=S.records.some(r=>r.date===wk[i]&&r.cat===w.cat && (w.isRest?r.cat==='rest':r.cat!=='rest'));
-    const today=i===dow; const col=CAT[w.cat].color;
+    const today=i===dow; const col=(CAT[w.cat]||CAT.rest).color;
+    const sl=getSleep(wk[i]);
     let detail='';
     if(!w.isRest){
       detail=w.items.map(it=>{const p=parseItem(it); const s=suggestLoad(p.ex,p.sets,p.reps);
         const loadTxt=s.weight>0?`${s.weight}kg ×${s.sets}组${s.reps?'×'+s.reps+'次':''}`:`${s.sets}组${s.reps?'×'+s.reps+'次':''}`;
         return `<div class="exrec"><div class="e">${p.ex}</div><div class="s">建议：${loadTxt}</div><div class="w">${s.note}</div></div>`;}).join('');
+      if(today && rd.score<50)
+        detail+=`<div class="mini" style="margin-top:9px;color:#ffdb84">恢复评分 ${rd.score}，今天把组数减 1 组、RPE 压在 7 以内。</div>`;
+      if(today && rd.hasSleep && rd.sleep<6.5)
+        detail+=`<div class="mini" style="margin-top:5px;color:#ffdb84">近 4 天平均只睡 ${rd.sleep}h，热身时间和组间休息都要加长。</div>`;
     } else {
       detail=`<div class="exrec"><div class="s">${w.items.join(' · ')}</div></div>`;
     }
     return `<div class="rec ${today?'open':''}" style="border-left-color:${col}">
       <div class="rhead"><span class="arrow">›</span>
         <div class="t">${w.d}${today?' · 今天':''}
-          <span class="pill ${w.cat}">${w.isRest?'休息':CAT[w.cat].name}</span> ${done?'✅':''}</div>
+          <span class="pill ${w.cat}">${w.isRest?'休息':CAT[w.cat].name}</span> ${done?'✅':''}
+          ${sl?`<span class="pill rest">🌙 ${sl}h</span>`:''}</div>
         <div class="d">${w.title}</div></div>
       <div class="rbody">${detail}
         ${today&&!w.isRest?`<button class="green" style="margin-top:9px" onclick="quickLog('${w.cat}')">快速记录今天</button>`:''}
@@ -755,10 +962,11 @@ function renderPlan(){
   else{recDet=rec.plan.items.map(it=>{const p=parseItem(it);const s=suggestLoad(p.ex,p.sets,p.reps);
     const loadTxt=s.weight>0?`${s.weight}kg ×${s.sets}组${s.reps?'×'+s.reps+'次':''}`:`${s.sets}组${s.reps?'×'+s.reps+'次':''}`;
     return `<div class="exrec"><div class="e">${p.ex}</div><div class="s">${loadTxt}</div><div class="w">${s.note}</div></div>`;}).join('');}
-  $('recoBox').innerHTML=`<div class="rec" style="border-left-color:${CAT[rec.plan.cat].color}">
+  $('recoBox').innerHTML=`<div class="rec" style="border-left-color:${(CAT[rec.plan.cat]||CAT.rest).color}">
     <div class="t">${rec.headline}</div><div class="d">${CAT[rec.plan.cat].name}</div>${recDet}
     <div class="mini" style="margin-top:6px">当前模式：${S.plan.mode==='plan'?'按计划训练':'自由训练'}</div></div>`;
-  $('g_goal').value=S.profile.goal; $('g_days').value=S.profile.days;
+  $('g_goal').value=(S.profile.goal&&GOAL_PLAN[S.profile.goal])?S.profile.goal:'balance';
+  $('g_days').value=S.profile.days||5;
 }
 function quickLog(cat){$('f_cat').value=cat; onCatChange(); show('v_log'); $('f_date').value=todayStr();}
 
@@ -780,21 +988,39 @@ function renderCal(){
       const sets=recs.reduce((a,r)=>a+(+r.sets||0),0);
       badge=`<span class="badge">${sets?sets+'组':'休'}</span>`;
     }
-    html+=`<div class="cell ${isToday?'today':''}" data-d="${ds}"><div class="dn">${d}</div>${dots}${badge}</div>`;
+    const sl=getSleep(ds);
+    const slCls=sl?(' sleep'+(sl<6?' low':'')):'';
+    const slStyle=sl?` style="--pf:${Math.min(100,Math.round(sl/9*100))}%"`:'';
+    const slTxt=sl?`<span class="slt">${sl}h</span>`:'';
+    html+=`<div class="cell${isToday?' today':''}${slCls}"${slStyle} data-d="${ds}">${slTxt}<div class="dn">${d}</div>${dots}${badge}</div>`;
   }
   $('calGrid').innerHTML=html;
   $('calGrid').querySelectorAll('.cell[data-d]').forEach(c=>c.onclick=()=>showDay(c.dataset.d));
-  const mRecs=S.records.filter(r=>r.date.startsWith(y+'-'+pad(m+1)));
+  const mPre=y+'-'+pad(m+1);
+  const mRecs=S.records.filter(r=>r.date.startsWith(mPre));
   const mDays=new Set(mRecs.filter(r=>r.cat!=='rest').map(r=>r.date)).size;
   const mSets=mRecs.reduce((a,r)=>a+(+r.sets||0),0);
-  $('calSummary').innerHTML=`本月训练 <b>${mDays}</b> 天，共 <b>${mSets}</b> 组。${mDays>=16?'频率优秀 💪':mDays>=10?'频率良好 👍':'建议提高训练频率。'}`;
+  const mSleep=[]; for(let d=1;d<=daysIn;d++){const v=getSleep(mPre+'-'+pad(d)); if(v>0)mSleep.push(v);}
+  const avgS=mSleep.length?mSleep.reduce((a,b)=>a+b,0)/mSleep.length:0;
+  $('calSummary').innerHTML=`本月训练 <b>${mDays}</b> 天，共 <b>${mSets}</b> 组。${mDays>=16?'频率优秀 💪':mDays>=10?'频率良好 👍':'建议提高训练频率。'}`
+    + (mSleep.length?`<br>睡眠记录 <b>${mSleep.length}</b> 天，平均 <b>${Math.round(avgS*10)/10}h</b>。${avgS>=7.5?'恢复条件不错。':avgS>=6.5?'勉强够，再早睡半小时会明显不一样。':'整体偏少，这是恢复评分上不去的直接原因之一。'}`:'');
   if(S.cal.sel)showDay(S.cal.sel); else{$('calDetailTitle').innerHTML='<span class="ci">🔍</span>点击某天查看详情';$('calDetail').innerHTML='';}
 }
 function showDay(ds){
   S.cal.sel=ds; const recs=S.records.filter(r=>r.date===ds);
   $('calDetailTitle').innerHTML=`<span class="ci">🔍</span>${ds}${ds===todayStr()?' (今天)':''}`;
-  if(!recs.length){$('calDetail').innerHTML=`<div class="mini">这天没有记录。</div><button class="sub" style="margin-top:8px" onclick="logThis('${ds}')">补记这天</button>`;return;}
-  $('calDetail').innerHTML=recs.map(r=>{
+  const sl=getSleep(ds);
+  const sColor=sl<6?'#ff5c6c':'#a78bfa';
+  const sTip=sl>=8?'充足，恢复条件好':sl>=7?'够用，理想是 7.5-9h':sl>=6?'偏少，训练日中午补 30-60min':'明显不足，今天的强度要往下压';
+  const sleepLine=sl?`<div class="exrec" style="border-left:3px solid ${sColor}">
+    <div class="e">🌙 睡眠 ${sl} 小时</div>
+    <div class="s">${sTip}</div></div>`:'';
+  if(!recs.length){
+    $('calDetail').innerHTML=(sleepLine||'<div class="mini">这天没有记录。</div>')
+      +`<button class="sub" style="margin-top:8px" onclick="logThis('${ds}')">补记这天</button>`;
+    return;
+  }
+  $('calDetail').innerHTML=sleepLine+recs.map(r=>{
     if(r.cat==='rest') return `<div class="exrec"><div class="e"><span class="badge-rest">休息</span> ${r.note||'休息恢复'}</div></div>`;
     return `<div class="exrec"><div class="e">${CAT[r.cat].name} · ${r.ex}</div>
       <div class="s">${r.weight?r.weight+'kg ':''}${r.sets||''}组×${r.reps||''}次 · 时长${r.dur||0}min · RPE${r.rpe}</div>
@@ -862,13 +1088,19 @@ function renderAna(){
     else if(bd<ball*0.5)ana+=`· ⚠ 力量偏少，围度/对抗不足。<br>`;
     else ana+=`· ✅ 篮球与力量比例较均衡。<br>`;}
   $('anaText').innerHTML=ana;
-  const r3=lastN(3).filter(r=>r.cat!=='rest'); const sets=r3.reduce((a,r)=>a+(+r.sets||0),0);
-  const rpe=r3.length?Math.round(r3.reduce((a,r)=>a+(+r.rpe||0),0)/r3.length):0;
-  let rest=`近3天：${sets}组，平均RPE ${rpe}，恢复评分 ${recoveryScore()}。<br>`;
-  if(recoveryScore()<45)rest+=`· 建议明天安排恢复日，睡眠8h${S.profile.w?`，蛋白约${Math.round(S.profile.w*1.8)}g/天`:""}。`;
-  else if(recoveryScore()<70)rest+=`· 负荷适中，1个训练日后穿插轻恢复，注意补水睡眠。`;
+  const rd=recoveryDetail();
+  let rest=`近 3 天：<b>${rd.sets}</b> 组，平均 RPE <b>${rd.avgRpe}</b>，恢复评分 <b>${rd.score}</b>。<br>`;
+  if(rd.hasSleep){
+    const s=rd.sleep;
+    rest+=`· 睡眠：近 4 天平均 <b>${s}h</b> —— ${s>=8?'充足，恢复条件好':s>=7?'够用，理想是 7.5-9h':s>=6?'偏少，训练日中午补 30-60min':'明显不足，这是评分被压低的直接原因'}`+
+      `（${rd.sleepAdj>=0?'+':''}${rd.sleepAdj} 分）<br>`;
+  } else {
+    rest+=`· 还没有睡眠记录。在「记录」页填一下昨晚睡了几小时，恢复评分会准很多。<br>`;
+  }
+  if(rd.score<45)rest+=`· 建议明天安排恢复日，睡眠 8h${S.profile.w?`，蛋白约${Math.round(S.profile.w*1.8)}g/天`:''}。`;
+  else if(rd.score<70)rest+=`· 负荷适中，1 个训练日后穿插轻恢复，注意补水睡眠。`;
   else rest+=`· 恢复良好，可正常推进计划。`;
-  rest+=`<br>· ${POS_TIP[S.profile.pos]||POS_TIP['45']}`;
+  rest+=`<br>· ${POS_TIP[S.profile.pos]||POS_TIP['']}`;
   $('restText').innerHTML=rest;
   const exs={}; all.forEach(r=>{if(r.weight>0)(exs[r.ex]=exs[r.ex]||[]).push(r);});
   const best=[]; Object.keys(exs).forEach(e=>{const a=exs[e];if(a.length>=2){const ch=a[a.length-1].weight-a[0].weight;if(ch>0)best.push(`${e} ${a[0].weight}→${a[a.length-1].weight}kg(+${ch})`);}});
@@ -908,15 +1140,31 @@ function onCatChange(){
 $('f_cat').onchange=onCatChange;
 $('saveBtn').onclick=()=>{
   const isRest=$('f_cat').value==='rest';
-  const rec={date:$('f_date').value||todayStr(),cat:$('f_cat').value,
-    ex:isRest?'休息':$('f_ex').value.trim(),weight:isRest?0:+$('f_w').value||0,
+  const date=$('f_date').value||todayStr();
+  const sleepH=+$('f_sleep').value||0;
+  const exTxt=$('f_ex').value.trim();
+
+  // 只填了睡眠：单独存睡眠，不生成训练记录
+  if(!isRest && !exTxt){
+    if(!sleepH){toast('填个动作名称，或者至少记一下睡眠');return;}
+    setSleep(date,sleepH); save();
+    $('f_sleep').value='';
+    toast('已记录 '+sleepH+'h 睡眠，恢复评分已重算');
+    renderHome(); return;
+  }
+
+  const rec={date:date,cat:$('f_cat').value,
+    ex:isRest?'休息':exTxt,weight:isRest?0:+$('f_w').value||0,
     sets:isRest?0:+$('f_s').value||0,reps:isRest?0:+$('f_r').value||0,
     dur:isRest?0:+$('f_dur').value||0,rpe:isRest?0:+$('f_rpe').value||7,
     note:(isRest?$('f_resttype').value+' ':'')+$('f_note').value.trim()};
-  if(!isRest&&!rec.ex){toast('请填写动作名称');return;}
-  S.records.push(rec); save();
-  ['f_ex','f_w','f_s','f_r','f_dur','f_note'].forEach(k=>$(k).value='');
-  toast('已保存！计划与恢复建议已更新。'); renderHome();
+  if(sleepH) rec.sleep=sleepH;
+  S.records.push(rec);
+  if(sleepH) setSleep(date,sleepH);
+  save();
+  ['f_ex','f_w','f_s','f_r','f_dur','f_note','f_sleep'].forEach(k=>$(k).value='');
+  toast(sleepH?'已保存，睡眠 '+sleepH+'h 已计入恢复评分':'已保存！计划与恢复建议已更新。');
+  renderHome();
 };
 $('f_rpe').oninput=()=>$('rpev').textContent=$('f_rpe').value;
 
@@ -924,21 +1172,28 @@ $('f_rpe').oninput=()=>$('rpev').textContent=$('f_rpe').value;
 document.querySelectorAll('#modeSwitch div').forEach(d=>d.onclick=()=>{
   S.plan.mode=d.dataset.mode; save();
   document.querySelectorAll('#modeSwitch div').forEach(x=>x.classList.toggle('on',x===d)); renderPlan();});
-$('saveGoal').onclick=()=>{S.profile.goal=$('g_goal').value; S.profile.days=+$('g_days').value||5; save(); toast('目标已保存'); renderPlan();};
+$('saveGoal').onclick=()=>{
+  const changed=S.profile.goal!==$('g_goal').value;
+  S.profile.goal=$('g_goal').value; S.profile.days=+$('g_days').value||5;
+  save(); renderPlan();
+  toast(changed?'目标已切换，计划已按「'+GOAL_PLAN[S.profile.goal].name+'」重排':'目标已保存');
+};
 $('saveProfile').onclick=()=>{S.profile.h=+$('p_h').value||0; S.profile.w=+$('p_w').value||0; S.profile.pos=$('p_pos').value||'';
   save(); renderProfileSummary(); toast('档案已保存');};
 
 /* ===== 导入导出 ===== */
 $('exportBtn').onclick=()=>{
-  const rec=S.records.map(r=>[r.date,r.cat,r.ex,r.weight,r.sets,r.reps,r.dur,r.rpe,JSON.stringify(r.note||'')].join(',')).join('\n');
-  const body=S.body.map(b=>[b.date,'BODY',b.weight,b.fat,b.muscle,b.water,b.bone,b.visc,b.bmr,JSON.stringify(b.note||'')].join(',')).join('\n');
-  const blob=new Blob(['date,cat,ex,weight,sets,reps,dur,rpe,note\n'+rec+'\n'+body+'\n'],{type:'text/csv'});
+  const cl=s=>String(s||'').replace(/[,\r\n]/g,'；');
+  const rec=S.records.map(r=>[r.date,r.cat,r.ex,r.weight,r.sets,r.reps,r.dur,r.rpe,cl(r.note),getSleep(r.date)||''].join(',')).join('\n');
+  const body=S.body.map(b=>[b.date,'BODY',b.weight,b.fat,b.muscle,b.water,b.bone,b.visc,b.bmr,cl(b.note),''].join(',')).join('\n');
+  const blob=new Blob(['date,cat,ex,weight,sets,reps,dur,rpe,note,sleep\n'+rec+'\n'+body+'\n'],{type:'text/csv'});
   const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='fitness_data.csv'; a.click();
 };
 $('importBtn').onclick=()=>$('importFile').click();
 $('importFile').onchange=e=>{const f=e.target.files[0]; if(!f)return; const rd=new FileReader();
   rd.onload=()=>{rd.result.split('\n').slice(1).filter(l=>l.trim()&&!l.includes(',BODY,')).forEach(l=>{const p=l.split(',');
-    S.records.push({date:p[0],cat:p[1],ex:p[2],weight:+p[3]||0,sets:+p[4]||0,reps:+p[5]||0,dur:+p[6]||0,rpe:+p[7]||7,note:p[8]||''});});
+    S.records.push({date:p[0],cat:p[1],ex:p[2],weight:+p[3]||0,sets:+p[4]||0,reps:+p[5]||0,dur:+p[6]||0,rpe:+p[7]||7,note:p[8]||'',sleep:+p[9]||0});
+    if(+p[9]>0)setSleep(p[0],+p[9]);});
     rd.result.split('\n').filter(l=>l.trim().includes(',BODY,')).forEach(l=>{const p=l.split(',');
       S.body.push({date:p[0],weight:+p[2]||0,fat:+p[3]||0,muscle:+p[4]||0,water:+p[5]||0,bone:+p[6]||0,visc:+p[7]||0,bmr:+p[8]||0,note:p[9]||''});});
     save(); toast('导入完成'); renderData();}; rd.readAsText(f);};
@@ -948,7 +1203,8 @@ $('resetBtn').onclick=()=>{if(confirm('确定清空全部数据？不可恢复�
 const POS_TXT={45:'四五号位(内线/锋线)',23:'二三号位(外线)',all:'全能'};
 const POS_TIP={45:'内线/锋线：关注膝踝腰背，落地缓冲+核心稳定不可省。',
   23:'外线：重点保护踝与膝，变向减速要控制，落地缓冲不可省。',
-  all:'全能位：注意左右侧力量平衡，核心稳定与关节保护并重。'};
+  all:'全能位：注意左右侧力量平衡，核心稳定与关节保护并重。',
+  '':'通用：膝踝保护优先，落地缓冲和核心稳定是底线。填了位置后这里的建议会更针对。'};
 const GOAL_TXT={balance:'篮球+健美平衡',jump:'主攻弹跳/爆发',mass:'主攻增肌围度',skill:'主攻篮球技术'};
 function renderTopDate(){const d=new Date();
   const wd=['周日','周一','周二','周三','周四','周五','周六'][d.getDay()];
