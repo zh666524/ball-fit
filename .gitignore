@@ -16,3 +16,6 @@ _log*.txt
 _s_*.png
 _crop_*.png
 _shot*.png
+_test*
+_edge_profile/
+_syntax_check.js
